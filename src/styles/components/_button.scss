@@ -1,0 +1,32 @@
+@use '../abstract/color_variables' as colors;
+
+.button{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-family: 'Red_Rose_Bold', 'Times New Roman', Times, serif;
+    
+    &__primary{
+        background-color: colors.$dark_green;
+        color: colors.$white;
+        border: 1px solid colors.$cyan;
+
+        &:hover{
+            background-color: rgba(65, 86, 82, 0.8);
+        }
+    }
+    
+    &__secondary{
+        background-color: colors.$yellow;
+        color: colors.$dark_gray;
+        border:none;
+        
+        &:hover{
+            zoom: 1.1;
+        }
+        &--play_game{
+            padding: 24px;
+            font-size: 2.5rem;
+        }
+    }
+}

@@ -1,0 +1,36 @@
+@use '../abstract/color_variables' as colors;
+
+.card{
+    height: 100px;
+    aspect-ratio: 1/1;
+    background-color: transparent;
+    border: none;
+    
+    &__inner{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: all 0.5s ease-in-out;
+    }
+
+    &__face{
+        position: absolute;
+        inset: 0;
+        background-color: transparent;
+        backface-visibility: hidden;
+
+        &--front{
+            background-color: colors.$white;
+        }
+
+        &--back{
+            background-color: colors.$dark_gray;
+            transform: rotateY(180deg);
+        }
+    }
+    
+    &.is-flipped .card__inner{
+        transform: rotateY(180deg);
+    }
+}
