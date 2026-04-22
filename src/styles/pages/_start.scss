@@ -1,0 +1,43 @@
+@use '../abstract/color_variables' as colors;
+
+h1{
+    font-size: 140px;
+    font-family: 'Red Rose Bold', sans-serif;
+    color: colors.$white;
+    margin: 0;
+}
+
+.text{
+    margin: 0 auto 85px auto;
+
+    &__motivation{
+        font-size: 48px;
+        font-family: 'Almarai Regular', sans-serif;
+        color: colors.$white;
+        margin: 0px;
+        text-align: left;
+    }
+}
+
+.button_section{
+    height: 120px;
+}
+
+.content_wrapper{
+    &__position{
+    position: relative;
+    
+        &--logo_icon{
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            transform: rotate(37deg);
+            width: 100%;
+            height: 300px;
+        }
+        &--logo_icon svg path{
+            fill: colors.$yellow;
+            fill-opacity: 0.1;
+        }
+    }
+}
