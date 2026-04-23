@@ -19,12 +19,12 @@ h1{
     }
 }
 
-.button_section{
+.button-section{
     height: 120px;
     position: relative;
 }
 
-.content_wrapper{
+.content-wrapper{
     &__position{
         position: relative;
 
@@ -38,7 +38,7 @@ h1{
         }
         &--logo_icon svg path{
             fill: colors.$yellow;
-            fill-opacity: 0.1;
+            fill-opacity: 0.05;
         }
     }
 }
