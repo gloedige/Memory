@@ -70,5 +70,15 @@
             transition: transform 0.2s ease-in-out;
             transform: rotate(-30deg);
         }
+        &--start_game{
+            padding: 14px 20px;
+            font-size: 1.25rem;
+            gap: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+        &:hover &--start_game{
+            transition: transform 0.2s ease-in-out;
+            transform: scale(1.05);
+        }
     }
 }
