@@ -21,18 +21,19 @@ h1{
 
 .button_section{
     height: 120px;
+    position: relative;
 }
 
 .content_wrapper{
     &__position{
-    position: relative;
-    
+        position: relative;
+
         &--logo_icon{
             position: absolute;
-            bottom: 20px;
-            left: 20px;
+            bottom: 80px;
+            left: -10px;
             transform: rotate(37deg);
-            width: 100%;
+            width: 420px;
             height: 300px;
         }
         &--logo_icon svg path{
