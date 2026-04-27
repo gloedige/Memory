@@ -10,9 +10,13 @@
         background-color: colors.$dark_green;
         color: colors.$white;
         border: 1px solid colors.$cyan;
-
+        padding: 16px 24px;
+        font-size: 1.5rem;
+        gap: 10px;
+        
         &:hover{
-            background-color: rgba(65, 86, 82, 0.8);
+            border: 2px solid colors.$cyan;
+            box-shadow: 4px 4px 4px colors.$dark_green;
         }
     }
     

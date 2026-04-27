@@ -37,10 +37,8 @@
 .button__primary {
   background-color: #415652;
   color: #FFFFFF;
-  border: 1px solid #4DD5BC;
-}
-.button__primary:hover {
-  background-color: rgba(65, 86, 82, 0.8);
+  border: 1px dotted #FFD700;
+  padding: 16px 24px;
 }
 .button__secondary {
   background-color: #F0EA6E;

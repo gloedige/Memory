@@ -10,47 +10,46 @@
 </head>
 <body>
     <div class="content-wrapper">
-        <header>
-            <h1>Memory Game</h1>
-            <section class="score-board">
-                <div class="score-board__item">
-                    <img src="../assets/icons/label_blue_player.svg" alt="">
-                    <span class="score-board__player">Blue</span>
-                    <span class="score-board__value" id="score_blue">0</span>
-                </div>
-                <div class="score-board__item">
-                    <img src="../assets/icons/label_orange_player.svg" alt="">
-                    <span class="score-board__player">Orange</span>
-                    <span class="score-board__value" id="score_orange">0</span>
-                </div>
-                <div>
-                    <span class="score-board__player">Current Player:</span>
-                    <img src="../assets/icons/label_blue_player.svg" class="current-player-blue" alt="blue player">
-                    <img src="../assets/icons/label_orange_player.svg" class="current-player-orange" alt="orange player">
-                </div>
-            </section>
-            <section class="button-section-settings">
-                <button class="button button__secondary button__secondary--start_game">
-                    <img src="../assets/icons/exit_game_icon.svg" class="button__secondary--controller_icon" alt="exit game icon">
+        <div class="game-board-wrapper">
+            <header class="game-board-header">
+                <section class="score-board">
+                    <div class="score-board__item">
+                        <img src="../assets/icons/label_blue_player.svg" alt="">
+                        <span class="score-board__item--blue">Blue</span>
+                        <span class="score-board__item--blue" id="score_blue">0</span>
+                    </div>
+                    <div class="score-board__item">
+                        <img src="../assets/icons/label_orange_player.svg" alt="">
+                        <span class="score-board__item--orange">Orange</span>
+                        <span class="score-board__item--orange" id="score_orange">0</span>
+                    </div>
+                </section>
+                <section class="next-turn">
+                    <span class="next-turn__player">Current Player:</span>
+                    <img src="../assets/icons/label_blue_player.svg" class="next-turn__current-player-blue" alt="blue player">
+                    <img src="../assets/icons/label_orange_player.svg" class="next-turn__current-player-orange" alt="orange player">
+                </section>
+                <button class="button button__primary button__primary--exit_game">
+                    <img src="../assets/icons/exit_game_icon.svg" class="button__primary--controller_icon" alt="exit game icon">
                     Exit Game
                 </button>
+            </header>
+            <section class="field" id="field">
+                <button class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front"></div>
+                        <div class="card__face card__face--back"></div>
+                    </div>
+                </button>
+                <button class="card">
+                    <div class="card__inner">
+                        <div class="card__face card__face--front"></div>
+                        <div class="card__face card__face--back"></div>
+                    </div>
+                </button>
             </section>
-        </header>
+        </div>
     </div>
-    <section id="field">
-        <button class="card">
-            <div class="card__inner">
-                <div class="card__face card__face--front"></div>
-                <div class="card__face card__face--back"></div>
-            </div>
-        </button>
-        <button class="card">
-            <div class="card__inner">
-                <div class="card__face card__face--front"></div>
-                <div class="card__face card__face--back"></div>
-            </div>
-        </button>
-    </section>
     
 </body>
 </html>

@@ -1,1 +1,75 @@
 @use '../abstract/color_variables' as colors;
+
+.game-board-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 54px;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    
+    &__game_board{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+    }
+}
+
+.game-board-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+    
+.score-board{
+    display: flex;
+    gap: 20px;
+    padding: 16px 20px;
+    background-color: colors.$dark_green;
+    
+    &__item{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: 'Red Rose Bold', 'Times New Roman', Times, serif;
+        font-size: 1.5rem;
+        
+        &--blue{
+            color: colors.$blue;
+        }
+        
+        &--orange{
+            color: colors.$orange;
+        }
+    }
+}
+
+.next-turn{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    
+    &__player{
+        color: colors.$white;
+    }
+    
+    &__current-player-blue{
+        display: flex;
+    }
+    
+    &__current-player-orange{
+        display: none;
+    }
+}
+
+.field{
+    display: grid;
+    cursor: pointer;
+    grid-template-columns: repeat(4, 120px);
+    grid-auto-rows: 120px;
+    gap: 16px;
+}

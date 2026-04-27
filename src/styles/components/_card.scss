@@ -1,15 +1,16 @@
 @use '../abstract/color_variables' as colors;
 
 .card{
-    height: 100px;
+    height: 120px;
     aspect-ratio: 1/1;
     background-color: transparent;
     border: none;
+    padding: 0;
     
     &__inner{
         position: relative;
-        width: 100%;
-        height: 100%;
+        width: 120px;
+        height: 120px;
         transform-style: preserve-3d;
         transition: all 0.5s ease-in-out;
     }
@@ -25,7 +26,7 @@
         }
 
         &--back{
-            background-color: colors.$dark_gray;
+            background-color: colors.$dark_green;
             transform: rotateY(180deg);
         }
     }
