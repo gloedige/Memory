@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TS Memory</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="icon" href="../assets/icons/it_logo_favicon.svg" type="image/svg+xml">
+    <script type="module" src="/src/main.ts" defer></script>
+</head>
+<body>
+    <div class="content-wrapper">
+        <img src="../assets/images/game_over.svg" alt="game over image" class="game-over-image">
+        <div class="game-over-score-container">
+            <p class="final-score-text">Final score</p>
+            <section class="score-board">
+                    <div class="score-board__item">
+                        <img src="../assets/icons/label_blue_player.svg" alt="">
+                        <span class="score-board__item--blue">Blue</span>
+                        <span class="score-board__item--blue" id="score_blue">0</span>
+                    </div>
+                    <div class="score-board__item">
+                        <img src="../assets/icons/label_orange_player.svg" alt="">
+                        <span class="score-board__item--orange">Orange</span>
+                        <span class="score-board__item--orange" id="score_orange">0</span>
+                    </div>
+                </section>
+        </div>
+    </div>
+</body>
+</html>

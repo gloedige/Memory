@@ -1,0 +1,17 @@
+@use '../abstract/color_variables' as colors;
+
+.final-score-text{
+    font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
+    font-size: 26px;
+    color: colors.$white;
+    margin: 0;
+}
+
+.game-over-score-container{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 124px;
+}
