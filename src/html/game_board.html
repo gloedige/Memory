@@ -3,9 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Game Board</title>
+    <script type="module" src="../main.ts" defer></script>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="icon" href="../assets/icons/it_logo_favicon.svg" type="image/svg+xml">
 </head>
 <body>
+    <div class="content-wrapper">
+        <header>
+            <h1>Memory Game</h1>
+            <section class="score-board">
+                <div class="score-board__item">
+                    <img src="../assets/icons/label_blue_player.svg" alt="">
+                    <span class="score-board__player">Blue</span>
+                    <span class="score-board__value" id="score_blue">0</span>
+                </div>
+                <div class="score-board__item">
+                    <img src="../assets/icons/label_orange_player.svg" alt="">
+                    <span class="score-board__player">Orange</span>
+                    <span class="score-board__value" id="score_orange">0</span>
+                </div>
+                <div>
+                    <span class="score-board__player">Current Player:</span>
+                    <img src="../assets/icons/label_blue_player.svg" class="current-player-blue" alt="blue player">
+                    <img src="../assets/icons/label_orange_player.svg" class="current-player-orange" alt="orange player">
+                </div>
+            </section>
+            <section class="button-section-settings">
+                <button class="button button__secondary button__secondary--start_game">
+                    <img src="../assets/icons/exit_game_icon.svg" class="button__secondary--controller_icon" alt="exit game icon">
+                    Exit Game
+                </button>
+            </section>
+        </header>
+    </div>
     <section id="field">
         <button class="card">
             <div class="card__inner">
@@ -13,7 +44,7 @@
                 <div class="card__face card__face--back"></div>
             </div>
         </button>
-        <button>
+        <button class="card">
             <div class="card__inner">
                 <div class="card__face card__face--front"></div>
                 <div class="card__face card__face--back"></div>
