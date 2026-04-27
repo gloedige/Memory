@@ -98,16 +98,17 @@
     &__element{
         display: flex;
         flex-direction: row;
+        align-items: center;
         margin-left: 46px;
         gap: 10px;
-
+        
         &--active_option_icon{
             width: 40px;
             height: 20px;
             opacity: 1;
         }
     }
-
+    
 }
 
 .selection-container{
@@ -117,11 +118,74 @@
     gap: 20px;
     background-color: colors.$light_gray;
     padding: 14px 20px;
-
+    
     & p{
         font-family: 'Almarai Regular', sans-serif;
         font-size: 20px;
         color: colors.$dark_gray;
         margin: 0;
     }
+}
+
+.input-wrapper{
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.radio-label{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+}
+
+.box-shadow-radio {
+    appearance: none;
+    margin: 0;
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: 50%;
+    padding: 1px;
+    font-size: 20px;
+
+    /* White border = gap between dot and ring */
+    border: 0.15em solid #FFF;
+    
+    /* A box-shadow with no offset/blur = the outer ring */
+    box-shadow: 0 0 0 0.15em colors.$dark_gray;
+    
+    /* Center the ::before dot */
+    display: grid;
+    place-content: center;
+}
+
+.box-shadow-radio:checked {
+    width: 0.8em;
+    height: 0.8em;
+    box-shadow: 0 0 0 0.1em colors.$dark_gray;
+    padding: 0;
+}
+
+.box-shadow-radio::before {
+    content: "";
+    width: 0.3em;
+    height: 0.3em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+
+    /* Using box-shadow instead of background so it prints */
+    box-shadow: inset 1em 1em colors.$dark_gray;
+
+    /* Fallback for Windows High Contrast Mode */
+    background-color: CanvasText;
+}
+
+.box-shadow-radio:checked::before {
+    transform: scale(1);
 }
