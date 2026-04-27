@@ -1,0 +1,33 @@
+@use '../abstract/color_variables' as colors;
+
+.exit-game-dialog{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border: none;
+    gap: 54px;
+    background-color: colors.$white;
+    max-width: 460px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-60vh);
+    transition: all 0.3s ease-in-out;
+
+    &__question{
+        font-family: 'Red Rose Bold', 'Times New Roman', Times, serif;
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    &__button-section{
+        display: flex;
+        gap: 24px;
+    }
+}
+
+.exit-game-dialog.is-visible{
+    opacity: 1;
+    transform: translateY(0);
+}

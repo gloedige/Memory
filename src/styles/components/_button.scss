@@ -33,7 +33,6 @@
             transition: transform 0.2s ease-in-out;
         }
         &--play_game:hover{
-            // transition: transform 0.2s ease-in-out;
             transform: scale(1.05);
         }
 
@@ -83,6 +82,33 @@
         &--start_game:hover{
             transition: transform 0.2s ease-in-out;
             transform: scale(1.2);
+        }
+    }
+
+    &__dialog{
+        color: colors.$white;
+        padding: 16px 24px;
+        font-size: 1.25rem;
+        border: 2px solid colors.$cyan;
+        
+        &--back-button{
+            background-color: colors.$cyan;
+            color: colors.$white;
+
+            &:hover{
+                box-shadow: 4px 4px 4px colors.$hover_cyan;
+                background-color: colors.$hover_cyan;
+            }
+        }
+
+        &--exit-button{
+            background-color: colors.$light_cyan;
+            color: colors.$cyan;
+
+            &:hover{
+                box-shadow: 4px 4px 4px colors.$hover_cyan;
+                background-color: colors.$hover_cyan;
+            }
         }
     }
 }
