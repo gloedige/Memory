@@ -1,0 +1,51 @@
+@use '../abstract/color_variables' as colors;
+
+.confetti-image{
+    width: 100%;
+    max-width: 1200px;
+}
+
+.winner-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 0 auto;
+    
+    &__winner-text{
+        color: colors.$white;
+        font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
+        font-size: 2.5rem;
+        margin: 0;
+    }
+
+    &__winner-name{
+        color: colors.$white;
+        font-family: 'Red Rose Bold', 'Times New Roman', Times, serif;
+        font-size: 3.75rem;
+        margin: 0;
+        &--winner-orange{
+            color: colors.$orange;
+        }
+    
+        &--winner-blue{
+            color: colors.$blue;
+        }
+    }
+
+    &__winner-svg{
+        margin: 64px 0;
+        
+        &--orange-player svg path{
+            fill: colors.$orange;
+        }
+
+        &--blue-player svg path{
+            fill: colors.$blue;
+        }
+    }
+}
+
+.back-to-start-link{
+    text-decoration: none;
+}
