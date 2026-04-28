@@ -23,16 +23,16 @@
                             <img src="../assets/icons/theme_icon.svg" alt="theme icon">
                             <h3>Game themes</h3>
                         </div>
-                        <div class="options-container__element">
+                        <div class="options-container__element options-container__element--active_option_icon">
                             <div class="input-wrapper">
-                                <input type="radio" id="option1" name="gruppe1" class="box-shadow-radio" checked>
+                                <input type="radio" id="option1" name="theme" class="box-shadow-radio" checked data-theme="Code vibes theme">
                             </div>
                             <label class="radio-label" for="option1">Code vibes theme</label>
                             <img src="../assets/icons/yellow_line_icon.svg" alt="active option icon">
                         </div>
                         <div class="options-container__element">
                             <div class="input-wrapper">
-                                <input type="radio" id="option2" name="gruppe1" class="box-shadow-radio">
+                                <input type="radio" id="option2" name="theme" class="box-shadow-radio" data-theme="Gaming theme">
                             </div>
                             <label class="radio-label" for="option2">Gaming theme</label>
                             <img src="../assets/icons/yellow_line_icon.svg" alt="active option icon">
@@ -45,14 +45,14 @@
                         </div>
                         <div class="options-container__element">
                             <div class="input-wrapper">
-                                <input type="radio" id="option1" name="gruppe2" class="box-shadow-radio">
+                                <input type="radio" id="option1" name="player" class="box-shadow-radio" data-player="Blue">
                             </div>
                             <label class="radio-label" for="option1">Blue</label>
                             <img src="../assets/icons/yellow_line_icon.svg" alt="active option icon" class="options-container__element--active_option_icon">
                         </div>
                         <div class="options-container__element">
                             <div class="input-wrapper">
-                                <input type="radio" id="option2" name="gruppe2" class="box-shadow-radio">
+                                <input type="radio" id="option2" name="player" class="box-shadow-radio" data-player="Orange">
                             </div>
                             <label class="radio-label" for="option2">Orange</label>
                             <img src="../assets/icons/yellow_line_icon.svg" alt="active option icon" class="options-container__element--active_option_icon">
@@ -65,21 +65,21 @@
                         </div>
                         <div class="options-container__element">
                             <div class="input-wrapper">
-                                <input type="radio" id="option1" name="gruppe3" class="box-shadow-radio">
+                                <input type="radio" id="option1" name="boardSize" class="box-shadow-radio" data-board-size="16 cards">
                             </div>
                             <label class="radio-label" for="option1">16 cards</label>
                             <img src="../assets/icons/yellow_line_icon.svg" alt="active option icon" class="options-container__element--active_option_icon">
                         </div>
                         <div class="options-container__element">
                             <div class="input-wrapper">
-                                <input type="radio" id="option2" name="gruppe3" class="box-shadow-radio">
+                                <input type="radio" id="option2" name="boardSize" class="box-shadow-radio" data-board-size="24 cards">
                             </div>
                             <label class="radio-label" for="option2">24 cards</label>
                             <img src="../assets/icons/yellow_line_icon.svg" alt="active option icon" class="options-container__element--active_option_icon">
                         </div>
                         <div class="options-container__element">
                             <div class="input-wrapper">
-                                <input type="radio" id="option3" name="gruppe3" class="box-shadow-radio">
+                                <input type="radio" id="option3" name="boardSize" class="box-shadow-radio" data-board-size="36 cards">
                             </div>
                             <label class="radio-label" for="option3">36 cards</label>
                             <img src="../assets/icons/yellow_line_icon.svg" alt="active option icon" class="options-container__element--active_option_icon">
@@ -90,11 +90,11 @@
                     <img src="../assets/images/gaming_logo.svg" alt="board preview image" class="settings-container__preview--theme_1_image">
                     <!-- <img src="../assets/images/it_logo.svg" alt="board preview image" class="settings-container__preview--theme_2_image"> -->
                     <section class="selection-container">
-                        <p>Game theme</p>
+                        <p id="selected_theme">Game theme</p>
                         <img src="../assets/icons/yellow_slash_line_icon.svg" alt="yellow slash line icon" class="selection-container__yellow_slash_line_icon">
-                        <p>Player</p>
+                        <p id="selected_player">Player</p>
                         <img src="../assets/icons/yellow_slash_line_icon.svg" alt="yellow slash line icon" class="selection-container__yellow_slash_line_icon">
-                        <p>Board size</p>
+                        <p id="selected_board_size">Board size</p>
                         <a href="./game_board.html" class="button-section-settings">
                             <button class="button button__secondary button__secondary--start_game">
                                 <img src="../assets/icons/play_icon.svg" class="button__secondary--controller_icon" alt="play icon">

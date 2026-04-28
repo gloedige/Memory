@@ -2,6 +2,15 @@ import './styles/style.scss'
 
 const exitBtn = document.getElementById("exit_game_button")
 const backToGameBtn = document.getElementById("back_to_game")
+let settings: {
+    theme: "Code vibes theme" | "Gaming theme",
+    player: "Blue" | "Orange" | null,
+    boardSize: "16 cards" | "24 cards" | "36 cards" | null
+} = {
+    theme: "Code vibes theme",
+    player: null,
+    boardSize: null
+}
 
 init();
 
@@ -61,7 +70,6 @@ function setIconInSettingsOptions(container: Element, input: HTMLInputElement){
     hideAllIconsInOptionsContainer(container);
     const optionsContainerElement: HTMLElement | null = getOptionsContainerElement(input);
     if(optionsContainerElement && input.checked){
-        // console.log('image Element: ', optionsContainer);
         optionsContainerElement.classList.add("options-container__element--active_option_icon");
     }
 }
@@ -87,7 +95,6 @@ function hideAllIconsInOptionsContainer(container: Element){
  */
 function getOptionsContainerElement(input: HTMLInputElement): HTMLElement | null{
     const optionsContainerElement: Element | null = input.closest(".options-container__element");
-    // const imgRef = optionsContainer?.querySelector("img") as HTMLImageElement | null;
     return optionsContainerElement as HTMLElement | null;
 }
 
@@ -97,15 +104,53 @@ function getOptionsContainerElement(input: HTMLInputElement): HTMLElement | null
  * is changed (e.g., a radio button is selected), it calls the setIconInSettingsOptions function to update the 
  * active option icon based on the selected input.
  */
-const optionsContainer = document.querySelectorAll(".options-container")
+const optionsContainer: NodeListOf<Element> = document.querySelectorAll(".options-container")
 optionsContainer.forEach((container) => {
-    const inputContainer = container.querySelectorAll("input") as NodeListOf<HTMLInputElement>;
+    const inputContainer: NodeListOf<HTMLInputElement> = container.querySelectorAll("input") as NodeListOf<HTMLInputElement>;
     if(!inputContainer) return;
 
     inputContainer.forEach((input) => {
         input.addEventListener("change", () => {
-        console.log('input checked: ', input.checked);
         setIconInSettingsOptions(container, input);
+        storeSelectionInSettings(input);               
+        showSelectedOptionsInPreview();                                    
         });
     });
 });
+
+
+
+/**
+ * This function takes an input element as a parameter and updates the settings object based on the name and dataset of 
+ * the input element.
+ * @param input The input element whose value is to be stored in the settings object.
+ */
+function storeSelectionInSettings(input: HTMLInputElement){
+    const { name, dataset } = input;
+    if(name === "theme"){
+        settings.theme = dataset.theme as "Code vibes theme" | "Gaming theme";
+    } else if(name === "player"){
+        settings.player = dataset.player as "Blue" | "Orange";
+    } else if(name === "boardSize"){
+        settings.boardSize = dataset.boardSize as "16 cards" | "24 cards" | "36 cards";
+    }
+}
+
+
+/**
+ * This function updates the text content of the preview elements to show the currently selected options from the settings object.
+ */
+function showSelectedOptionsInPreview(){
+    const selectedThemeRef = document.getElementById("selected_theme");
+    const selectedPlayerRef = document.getElementById("selected_player");
+    const selectedBoardSizeRef = document.getElementById("selected_board_size");
+    if(selectedThemeRef){
+        selectedThemeRef.textContent = `${settings.theme}`;
+    }
+    if(selectedPlayerRef && settings.player !== null){
+        selectedPlayerRef.textContent = `${settings.player}`;
+    }
+    if(selectedBoardSizeRef && settings.boardSize !== null){
+        selectedBoardSizeRef.textContent = `${settings.boardSize}`;
+    }
+}
