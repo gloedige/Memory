@@ -101,10 +101,14 @@
         align-items: center;
         margin-left: 46px;
         gap: 10px;
-        
-        &--active_option_icon{
+
+        & img{
             width: 40px;
             height: 20px;
+            opacity: 0;
+        }
+
+        &--active_option_icon img{
             opacity: 1;
         }
     }
@@ -153,13 +157,9 @@
     padding: 1px;
     font-size: 20px;
 
-    /* White border = gap between dot and ring */
     border: 0.15em solid #FFF;
-    
-    /* A box-shadow with no offset/blur = the outer ring */
     box-shadow: 0 0 0 0.15em colors.$dark_gray;
     
-    /* Center the ::before dot */
     display: grid;
     place-content: center;
 }
@@ -179,10 +179,8 @@
     transform: scale(0);
     transition: 120ms transform ease-in-out;
 
-    /* Using box-shadow instead of background so it prints */
     box-shadow: inset 1em 1em colors.$dark_gray;
 
-    /* Fallback for Windows High Contrast Mode */
     background-color: CanvasText;
 }
 

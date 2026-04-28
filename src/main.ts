@@ -50,3 +50,62 @@ function hideDialog(){
         dialog.classList.remove("is-visible");
     }
 }
+
+
+/**
+ * This function hide all icons for unchecked radio buttons and shows them for checked radio buttons.
+ * @param container The container element within which to set the active option icon.
+ * @param input The input element that triggered the change event.
+ */
+function setIconInSettingsOptions(container: Element, input: HTMLInputElement){
+    hideAllIconsInOptionsContainer(container);
+    const optionsContainerElement: HTMLElement | null = getOptionsContainerElement(input);
+    if(optionsContainerElement && input.checked){
+        // console.log('image Element: ', optionsContainer);
+        optionsContainerElement.classList.add("options-container__element--active_option_icon");
+    }
+}
+
+
+/**
+ * This function takes a container element as a parameter and hides all icons within that container by removing the 
+ * "options-container__element--active_option_icon" class from each element with the class "options-container__element".
+ * @param container The container element within which to hide all icons.
+ */
+function hideAllIconsInOptionsContainer(container: Element){
+    const optionsContainerElements: NodeListOf<Element> | null = container.querySelectorAll(".options-container__element");
+    optionsContainerElements.forEach((element) => {
+        element.classList.remove("options-container__element--active_option_icon");
+    });
+}
+
+
+/**
+ * This function takes an input element as a parameter and returns the closest parent element with the class "options-container__element". 
+ * @param input The input element for which to find the closest parent element with the class "options-container__element".
+ * @returns The closest parent element with the class "options-container__element" or null if no such element is found.
+ */
+function getOptionsContainerElement(input: HTMLInputElement): HTMLElement | null{
+    const optionsContainerElement: Element | null = input.closest(".options-container__element");
+    // const imgRef = optionsContainer?.querySelector("img") as HTMLImageElement | null;
+    return optionsContainerElement as HTMLElement | null;
+}
+
+
+/**
+ * This function adds event listeners to all input elements within the options containers. When an input element 
+ * is changed (e.g., a radio button is selected), it calls the setIconInSettingsOptions function to update the 
+ * active option icon based on the selected input.
+ */
+const optionsContainer = document.querySelectorAll(".options-container")
+optionsContainer.forEach((container) => {
+    const inputContainer = container.querySelectorAll("input") as NodeListOf<HTMLInputElement>;
+    if(!inputContainer) return;
+
+    inputContainer.forEach((input) => {
+        input.addEventListener("change", () => {
+        console.log('input checked: ', input.checked);
+        setIconInSettingsOptions(container, input);
+        });
+    });
+});
