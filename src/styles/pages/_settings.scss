@@ -59,12 +59,6 @@
     &__preview{
         display: flex;
         align-items: flex-end;
-
-        &--theme_1_image, &--theme_2_image{
-            width: 100%;
-            max-width: 460px;
-            height: auto;
-        }
     }
 }
 
@@ -186,4 +180,16 @@
 
 .box-shadow-radio:checked::before {
     transform: scale(1);
+}
+
+.preview-img-container{
+    width: 100%;
+    max-width: 460px;
+    height: 412px;
+    border-radius: 10px;
+    background-color: colors.$light_gray;
+
+    &--theme-1-image, &--theme-2-image{
+            display: none;
+        }
 }

@@ -113,7 +113,9 @@ optionsContainer.forEach((container) => {
         input.addEventListener("change", () => {
         setIconInSettingsOptions(container, input);
         storeSelectionInSettings(input);               
-        showSelectedOptionsInPreview();                                    
+        showSelectedOptionsInPreview();
+        showPreviewImageBasedOnSelectedTheme();
+        enableStartGameButtonIfAllOptionsSelected();                                
         });
     });
 });
@@ -141,9 +143,9 @@ function storeSelectionInSettings(input: HTMLInputElement){
  * This function updates the text content of the preview elements to show the currently selected options from the settings object.
  */
 function showSelectedOptionsInPreview(){
-    const selectedThemeRef = document.getElementById("selected_theme");
-    const selectedPlayerRef = document.getElementById("selected_player");
-    const selectedBoardSizeRef = document.getElementById("selected_board_size");
+    const selectedThemeRef: HTMLElement | null = document.getElementById("selected_theme");
+    const selectedPlayerRef: HTMLElement | null = document.getElementById("selected_player");
+    const selectedBoardSizeRef: HTMLElement | null = document.getElementById("selected_board_size");
     if(selectedThemeRef){
         selectedThemeRef.textContent = `${settings.theme}`;
     }
@@ -152,5 +154,42 @@ function showSelectedOptionsInPreview(){
     }
     if(selectedBoardSizeRef && settings.boardSize !== null){
         selectedBoardSizeRef.textContent = `${settings.boardSize}`;
+    }
+}
+
+
+/**
+ * This function shows the preview image based on the selected theme in the settings object.
+ */
+function showPreviewImageBasedOnSelectedTheme(){
+    const theme1ImgRef: HTMLImageElement | null = document.getElementById("theme_1_img") as HTMLImageElement | null;
+    const theme2ImgRef: HTMLImageElement | null = document.getElementById("theme_2_img") as HTMLImageElement | null;
+    if(settings.theme === "Gaming theme"){
+        if(theme1ImgRef && theme2ImgRef){
+            theme1ImgRef.style.display = "block";
+            theme2ImgRef.style.display = "none";
+        }
+    } else if(settings.theme === "Code vibes theme"){
+        if(theme1ImgRef && theme2ImgRef){
+            theme1ImgRef.style.display = "none";
+            theme2ImgRef.style.display = "block";
+        }
+    }
+}
+
+
+/**
+ * This function enables the start game button if all options (theme, player, and board size) are selected in the settings object.
+ */
+function enableStartGameButtonIfAllOptionsSelected(){
+    const startGameBtnRef: HTMLButtonElement | null = document.getElementById("start_game_button") as HTMLButtonElement | null;
+    if(settings.theme && settings.player && settings.boardSize){
+        if(startGameBtnRef){
+            startGameBtnRef.disabled = false;
+        }
+    } else {
+        if(startGameBtnRef){
+            startGameBtnRef.disabled = true;
+        }
     }
 }
