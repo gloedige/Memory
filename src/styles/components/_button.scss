@@ -18,6 +18,10 @@
             border: 2px solid colors.$cyan;
             box-shadow: 4px 4px 4px colors.$dark_green;
         }
+
+        &--exit-game{
+            margin-left: 100px;
+        }
     }
     
     &__secondary{

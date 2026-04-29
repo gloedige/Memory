@@ -1,13 +1,14 @@
 import './styles/style.scss'
+import { GameBoard } from "./scripts/board.class";
 
 const exitBtn = document.getElementById("exit_game_button")
 const backToGameBtn = document.getElementById("back_to_game")
-let settings: {
-    theme: "Code vibes theme" | "Gaming theme",
+export let settings: {
+    theme: "Code vibes theme" | "Gaming theme" | null,
     player: "Blue" | "Orange" | null,
     boardSize: "16 cards" | "24 cards" | "36 cards" | null
 } = {
-    theme: "Code vibes theme",
+    theme: null,
     player: null,
     boardSize: null
 }
@@ -193,3 +194,10 @@ function enableStartGameButtonIfAllOptionsSelected(){
         }
     }
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const fieldRef: HTMLElement | null = document.getElementById("field");
+  if (!fieldRef) return;      // läuft dann nur auf Seiten mit Spielfeld
+  new GameBoard();
+});
