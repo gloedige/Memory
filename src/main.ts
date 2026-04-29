@@ -113,7 +113,8 @@ optionsContainer.forEach((container) => {
     inputContainer.forEach((input) => {
         input.addEventListener("change", () => {
         setIconInSettingsOptions(container, input);
-        storeSelectionInSettings(input);               
+        storeSelectionInSettings(input);
+        storeSettingsInLocalStorage(settings);               
         showSelectedOptionsInPreview();
         showPreviewImageBasedOnSelectedTheme();
         enableStartGameButtonIfAllOptionsSelected();                                
@@ -137,6 +138,15 @@ function storeSelectionInSettings(input: HTMLInputElement){
     } else if(name === "boardSize"){
         settings.boardSize = dataset.boardSize as "16 cards" | "24 cards" | "36 cards";
     }
+}
+
+
+function storeSettingsInLocalStorage(settings: {
+    theme: "Code vibes theme" | "Gaming theme" | null,
+    player: "Blue" | "Orange" | null,
+    boardSize: "16 cards" | "24 cards" | "36 cards" | null
+}){
+    localStorage.setItem("memory_game_settings", JSON.stringify(settings));
 }
 
 
@@ -196,6 +206,10 @@ function enableStartGameButtonIfAllOptionsSelected(){
 }
 
 
+/**
+ * This function initializes the game by adding event listeners to the game field and buttons. It handles card flipping and 
+ * showing/hiding the exit game dialog.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const fieldRef: HTMLElement | null = document.getElementById("field");
   if (!fieldRef) return;      // läuft dann nur auf Seiten mit Spielfeld

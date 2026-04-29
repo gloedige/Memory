@@ -69,7 +69,14 @@
 .field{
     display: grid;
     cursor: pointer;
-    grid-template-columns: repeat(4, 120px);
     grid-auto-rows: 120px;
     gap: 16px;
+
+    &__16-cards{
+        grid-template-columns: repeat(4, 120px);
+    }
+
+    &__24-cards, &__36-cards{
+        grid-template-columns: repeat(6, 120px);
+    }
 }

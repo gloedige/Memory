@@ -1,6 +1,5 @@
 import {GameCard} from "./game_card.class";
 import { renderSingleCardsToGameBoard } from "./templates";
-import { settings } from "../main";
 
 export class GameBoard {
         CODE_VIBES_CARDS_IMAGES: string[] = [
@@ -28,13 +27,24 @@ export class GameBoard {
     flippedCards: GameCard[] = [];
     matchedCards: GameCard[] = [];
     imagesCache: {[key: string]: HTMLImageElement} = {};
+    settings: {
+        theme: "Code vibes theme" | "Gaming theme" | null,
+        player: "Blue" | "Orange" | null,
+        boardSize: "16 cards" | "24 cards" | "36 cards" | null
+    }
 
     constructor() {
+        this.settings = {
+            theme: null,
+            player: null,
+            boardSize: null
+        };
         this.cards = [];
         this.loadImages(this.CODE_VIBES_CARDS_IMAGES);
         this.createArrayOfGameCards();
         this.shuffleCards();
         this.renderCardsToBoard();
+        this.flipCardsEventListener();
     }
 
 
@@ -60,6 +70,7 @@ export class GameBoard {
      */
     createArrayOfGameCards(): void {
         const boardSize = this.determineBoardSizeBasedOnSettings();
+        this.setGridSizeClassOnField(boardSize);
         for(let i = 0; i < boardSize / 2; i++){
             const imagePath = this.CODE_VIBES_CARDS_IMAGES[i];
             const card1 = new GameCard(i, imagePath);
@@ -75,7 +86,8 @@ export class GameBoard {
      * @returns {number} - The number of cards for the selected board size.
      */
     determineBoardSizeBasedOnSettings(): number {
-        const selectedBoardSize = settings.boardSize;
+        this.getSettingsFromLocalStorage();
+        const selectedBoardSize = this.settings.boardSize;
         switch (selectedBoardSize) {
             case "16 cards":
                 return 16;
@@ -85,6 +97,31 @@ export class GameBoard {
                 return 36;
             default:                
                 return 16;
+        }
+    }
+
+
+    /**
+     * Sets the grid size class on the game field based on the board size.
+     * @param boardSize The number of cards on the board.
+     */
+    setGridSizeClassOnField(boardSize: number): void {
+        const fieldRef = document.getElementById("field");
+        if (!fieldRef) return;
+        fieldRef.classList.add(`field__${boardSize}-cards`);
+    }
+
+
+    /**
+     * This function retrieves the game settings from local storage and updates the settings property of the GameBoard instance.
+     * If no settings are found, it logs a warning message and keeps the default settings.
+     */
+    getSettingsFromLocalStorage(): void {
+        const storedSettings = localStorage.getItem("memory_game_settings");
+        if (storedSettings) {
+            this.settings = JSON.parse(storedSettings);
+        } else {
+            console.warn("No settings found in local storage, using default settings.");
         }
     }
 
@@ -118,8 +155,42 @@ export class GameBoard {
     }
 
 
+    //TODO: Funktion muss auf 14loc eingekürzt werden.
+    flipCardsEventListener(): void {
+    const buttonElements: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
+    buttonElements.forEach((button, index) => {
+        button.addEventListener("click", () => {
+            const clickedCard: GameCard = this.cards[index];
+            if (clickedCard.isFlipped || clickedCard.isMatched) return;
+            clickedCard.changeFlipStatus();
+            this.flippedCards.push(clickedCard);
+            if (this.flippedCards.length === 2) {
+                const [card1, card2] = this.flippedCards;
+                if (this.checkMatch(card1, card2)) {
+                    console.log("It's a match!");
+                } else {
+                    console.log("Not a match, flipping back...");
+                    setTimeout(() => {
+                        card1.changeFlipStatus();
+                        card2.changeFlipStatus();
+                        this.flipBack(card1, card2);                    
+                    }, 1000);
+                }
+                this.flippedCards = [];
+            }
+        });
+    }
+    );
+    }
 
 
+    /**
+     * This function checks if the two provided cards are a match by comparing their IDs. If they match, it updates their 
+     * matched status and adds them to the matchedCards array.
+     * @param card1 The first card to check.
+     * @param card2 The second card to check.
+     * @returns True if the cards match, false otherwise.
+     */
     checkMatch(card1: GameCard, card2: GameCard): boolean {
         if (card1.id === card2.id) {
             card1.isMatched = true;
@@ -128,6 +199,25 @@ export class GameBoard {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * This function flips the two specified cards back to their original state by removing the "is-flipped" class 
+     * from the corresponding button elements in the DOM.
+     * @param card1 The first card to flip back.
+     * @param card2 The second card to flip back.
+     */
+    flipBack(card1: GameCard, card2: GameCard): void {
+        const buttonElements: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
+        buttonElements.forEach((button, index) => {
+            const currentCard: GameCard = this.cards[index];
+            if (currentCard === card1 || currentCard === card2) {
+                if (button.classList.contains("is-flipped")) {
+                    button.classList.remove("is-flipped");
+                }
+            }
+        });
     }
 
 

@@ -15,9 +15,10 @@ export class GameCard {
     }
 
 
-    flip(): void {
+    changeFlipStatus(): void {
         this.isFlipped = !this.isFlipped;
     }
+
 
     match(otherCard: GameCard): boolean {
         if(this.id === otherCard.id){
