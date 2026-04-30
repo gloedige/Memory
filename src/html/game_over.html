@@ -9,7 +9,7 @@
     <script type="module" src="/src/main.ts" defer></script>
 </head>
 <body>
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="game_over_content">
         <img src="../assets/images/game_over.svg" alt="game over image" class="game-over-image">
         <div class="game-over-score-container">
             <p class="final-score-text">Final score</p>
@@ -17,12 +17,12 @@
                     <div class="score-board__item">
                         <img src="../assets/icons/label_blue_player.svg" alt="">
                         <span class="score-board__item--blue">Blue</span>
-                        <span class="score-board__item--blue" id="score_blue">0</span>
+                        <span class="score-board__item--blue" id="final_score_blue">0</span>
                     </div>
                     <div class="score-board__item">
                         <img src="../assets/icons/label_orange_player.svg" alt="">
                         <span class="score-board__item--orange">Orange</span>
-                        <span class="score-board__item--orange" id="score_orange">0</span>
+                        <span class="score-board__item--orange" id="final_score_orange">0</span>
                     </div>
                 </section>
         </div>

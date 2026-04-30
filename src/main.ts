@@ -211,7 +211,128 @@ function enableStartGameButtonIfAllOptionsSelected(){
  * showing/hiding the exit game dialog.
  */
 document.addEventListener("DOMContentLoaded", () => {
-  const fieldRef: HTMLElement | null = document.getElementById("field");
-  if (!fieldRef) return;      // läuft dann nur auf Seiten mit Spielfeld
-  new GameBoard();
+    handleGameBoardInitialization();
+    const { winner, score }: { winner: string, score: { Blue: number, Orange: number } } = getGameResultsFromLocalStorage();
+    handleGameOverPageInitialization(score);
+    handleWinnerPageInitialization(winner);
 });
+
+
+/**
+ * This function initializes the game board by creating a new GameBoard instance.
+ */
+function handleGameBoardInitialization(){
+    const fieldRef: HTMLElement | null = document.getElementById("field");
+    if (!fieldRef) return;
+    new GameBoard();
+}
+
+
+/**
+ * This function retrieves the game results (winner and score) from local storage. If there are no results in local storage, 
+ * it returns default values indicating that no one won and both players have a score of 0.
+ * @returns An object containing the winner and the score of both players.
+ */
+function getGameResultsFromLocalStorage(): { winner: string, score: { Blue: number, Orange: number } }{
+    const lastGameResult: string | null = localStorage.getItem("memory_game_results");
+    if(lastGameResult){
+        return JSON.parse(lastGameResult);
+    } else {
+        return {
+            winner: "No one",
+            score: {
+                Blue: 0,
+                Orange: 0
+            }
+        }
+    }
+}
+
+
+/**
+ * This function initializes the game over page by displaying the final scores of both players and then redirecting to the 
+ * winner page after a short delay.
+ * @param score The final scores of both players.
+ * @returns void
+ */
+function handleGameOverPageInitialization(score: { Blue: number, Orange: number }){
+    const gameOverContentRef: HTMLElement | null = document.getElementById("game_over_content");
+    if(!gameOverContentRef) return;
+        if(score){
+            const blueScoreRef: HTMLElement | null = document.getElementById("final_score_blue");
+            const orangeScoreRef: HTMLElement | null = document.getElementById("final_score_orange");
+            if(blueScoreRef){
+                blueScoreRef.textContent = `${score.Blue}`;
+            }
+            if(orangeScoreRef){
+                orangeScoreRef.textContent = `${score.Orange}`;
+            }
+        }
+    setTimeout(() => {
+        window.location.href = "../html/winner.html";
+    }, 4000);
+}
+
+
+/**
+ * This function initializes the winner page by setting the winner's name and updating the colors of the winner's name and 
+ * icon based on who won the game.
+ * @param winner The name of the winning player.
+ * @returns void
+ */
+function handleWinnerPageInitialization(winner: string){
+    const winnerContentRef: HTMLElement | null = document.getElementById("winner_content");
+        if (!winnerContentRef) return;
+        setWinnerNameInWinnerPage(winner);
+        handleColorOfWinnerNameAndIcon(winner);
+}
+
+
+/**
+ * This function sets the winner's name in the winner page by updating the text content of the element with the id "winner_name" 
+ * to display the name of the winning player.
+ * @param winner The name of the winning player.
+ * @returns void
+ */
+function setWinnerNameInWinnerPage(winner: string){
+    const winnerNameRef: HTMLElement | null = document.getElementById("winner_name");
+        if(winnerNameRef){
+            winnerNameRef.textContent = `${winner} PLAYER`.toUpperCase();
+        }
+}
+
+
+/**
+ * This function sets the color of the winner's name and icon in the winner page based on who won the game.
+ * @param winner The name of the winning player.
+ * @returns void
+ */
+function handleColorOfWinnerNameAndIcon(winner: string){
+    const winnerNameRef: HTMLElement | null = document.getElementById("winner_name");
+    const winnerIconRef: HTMLElement | null = document.getElementById("winner_icon");
+    if(winner === "Blue"){
+        setColorOfWinnerNameAndIcon(winnerIconRef, winnerNameRef, winner);
+    } else if(winner === "Orange"){
+        setColorOfWinnerNameAndIcon(winnerIconRef, winnerNameRef, winner);
+    }
+}
+
+
+/**
+ * This function sets the color of the winner's name and icon for the blue player by adding the appropriate CSS classes.
+ * @param winnerIconRef The HTML element representing the winner's icon.
+ * @param winnerNameRef The HTML element representing the winner's name.
+ * @param winner The name of the winning player.
+ */
+function setColorOfWinnerNameAndIcon(winnerIconRef: HTMLElement | null, winnerNameRef: HTMLElement | null, winner: string){
+    const lowercaseWinnerIdentifier = winner.toLowerCase();
+    const oppositeWinnerIdentifier = lowercaseWinnerIdentifier === "blue" ? "orange" : "blue";
+    if(winnerNameRef){
+        winnerNameRef.classList.add(`winner-container__winner-name--winner-${lowercaseWinnerIdentifier}`);
+        winnerNameRef.classList.remove(`winner-container__winner-name--winner-${oppositeWinnerIdentifier}`);
+    }
+    if(winnerIconRef){
+        winnerIconRef.classList.add(`winner-container__winner-svg--${lowercaseWinnerIdentifier}-player`);
+        winnerIconRef.classList.remove(`winner-container__winner-svg--${oppositeWinnerIdentifier}-player`);
+    }
+}

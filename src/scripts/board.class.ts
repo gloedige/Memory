@@ -27,6 +27,7 @@ export class GameBoard {
     flippedCards: GameCard[] = [];
     matchedCards: GameCard[] = [];
     nextPlayer: "Blue" | "Orange" | null = null;
+    winner: string | null = null;
     score: {
         Blue: number,
         Orange: number};
@@ -48,6 +49,7 @@ export class GameBoard {
             player: null,
             boardSize: null
         };
+        this.winner = null;
         this.cards = [];
         this.getSettingsFromLocalStorage();
         this.loadImages(this.CODE_VIBES_CARDS_IMAGES);
@@ -204,6 +206,7 @@ export class GameBoard {
             const [card1, card2] = this.flippedCards;
             if (this.checkMatch(card1, card2)) {
                 this.handleMatch(card1, card2);
+                this.getWinnerIfAllCardsMatched();
             } else {
                 this.handleNoMatch(card1, card2);
             }
@@ -304,6 +307,33 @@ export class GameBoard {
             orangeScoreElement.textContent = this.score.Orange.toString();
         }
     }
+
+
+    /**
+     * This function checks if all cards have been matched and, if so, determines the winner based on the scores and stores the results in local storage.
+     */
+    getWinnerIfAllCardsMatched(): void {
+        if (this.matchedCards.length === this.cards.length) {
+            this.winner = this.score.Blue > this.score.Orange ? "Blue" : this.score.Orange > this.score.Blue ? "Orange" : "No one, it's a tie";
+            this.storeResultsInLocalStorage();
+            setTimeout(() => {
+                window.location.href = "../html/game_over.html";
+            }, 2000);
+        }
+    }
+
+
+    /**
+     * This function stores the game results, including the winner and the final scores for both players, in local storage under the key "memory_game_results".
+     */
+    storeResultsInLocalStorage(): void {
+        const gameResults: { winner: string | null; score: { Blue: number; Orange: number } } = {
+            winner: this.winner,
+            score: this.score
+        };
+        localStorage.setItem("memory_game_results", JSON.stringify(gameResults));
+    }
+
 
     /**
      * This function handles the logic for when two flipped cards do not match. It flips the cards back to their original 
