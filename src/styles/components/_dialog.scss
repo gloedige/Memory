@@ -25,6 +25,10 @@
         display: flex;
         gap: 24px;
     }
+
+    &__button-section a{
+        text-decoration: none;
+    }
 }
 
 .exit-game-dialog.is-visible{
