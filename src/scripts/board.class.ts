@@ -39,6 +39,12 @@ export class GameBoard {
     }
     
 
+    /**
+     * This function initializes a new instance of the GameBoard class. It sets up the initial state of the 
+     * game board, including the score, settings, and winner. It also loads the card images, creates the array 
+     * of game cards based on the selected board size, shuffles the cards, renders them to the game board, 
+     * adds event listeners for flipping the cards, and sets the initial player for the game.
+     */
     constructor() {
         this.score =  {
             Blue: 0,
