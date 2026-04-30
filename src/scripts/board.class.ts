@@ -26,25 +26,36 @@ export class GameBoard {
     private cards: GameCard[];
     flippedCards: GameCard[] = [];
     matchedCards: GameCard[] = [];
+    nextPlayer: "Blue" | "Orange" | null = null;
+    score: {
+        Blue: number,
+        Orange: number};
     imagesCache: {[key: string]: HTMLImageElement} = {};
     settings: {
         theme: "Code vibes theme" | "Gaming theme" | null,
         player: "Blue" | "Orange" | null,
         boardSize: "16 cards" | "24 cards" | "36 cards" | null
     }
+    
 
     constructor() {
+        this.score =  {
+            Blue: 0,
+            Orange: 0
+        };
         this.settings = {
             theme: null,
             player: null,
             boardSize: null
         };
         this.cards = [];
+        this.getSettingsFromLocalStorage();
         this.loadImages(this.CODE_VIBES_CARDS_IMAGES);
         this.createArrayOfGameCards();
         this.shuffleCards();
         this.renderCardsToBoard();
         this.flipCardsEventListener();
+        this.setNextPlayer();
     }
 
 
@@ -69,7 +80,7 @@ export class GameBoard {
      * This function creates an array of GameCard objects based on the selected board size in the settings.
      */
     createArrayOfGameCards(): void {
-        const boardSize = this.determineBoardSizeBasedOnSettings();
+        const boardSize: number = this.determineBoardSizeBasedOnSettings();
         this.setGridSizeClassOnField(boardSize);
         for(let i = 0; i < boardSize / 2; i++){
             const imagePath = this.CODE_VIBES_CARDS_IMAGES[i];
@@ -86,8 +97,7 @@ export class GameBoard {
      * @returns {number} - The number of cards for the selected board size.
      */
     determineBoardSizeBasedOnSettings(): number {
-        this.getSettingsFromLocalStorage();
-        const selectedBoardSize = this.settings.boardSize;
+        const selectedBoardSize: "16 cards" | "24 cards" | "36 cards" | null = this.settings.boardSize;
         switch (selectedBoardSize) {
             case "16 cards":
                 return 16;
@@ -106,7 +116,7 @@ export class GameBoard {
      * @param boardSize The number of cards on the board.
      */
     setGridSizeClassOnField(boardSize: number): void {
-        const fieldRef = document.getElementById("field");
+        const fieldRef: HTMLElement | null = document.getElementById("field");
         if (!fieldRef) return;
         fieldRef.classList.add(`field__${boardSize}-cards`);
     }
@@ -117,7 +127,7 @@ export class GameBoard {
      * If no settings are found, it logs a warning message and keeps the default settings.
      */
     getSettingsFromLocalStorage(): void {
-        const storedSettings = localStorage.getItem("memory_game_settings");
+        const storedSettings: string | null = localStorage.getItem("memory_game_settings");
         if (storedSettings) {
             this.settings = JSON.parse(storedSettings);
         } else {
@@ -131,7 +141,7 @@ export class GameBoard {
      */
     shuffleCards(): void {
         for (let i = this.cards.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
+            const j: number = Math.floor(Math.random() * (i + 1));
             [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
         }
     }
@@ -141,13 +151,13 @@ export class GameBoard {
      * This function renders the cards to the game board by inserting the corresponding HTML for each card into the DOM.
      */
     renderCardsToBoard(): void {
-        const fieldRef = document.getElementById("field");
+        const fieldRef: HTMLElement | null = document.getElementById("field");
         if (!fieldRef) {
             console.error("Game board container not found");
             return;
         } else {
             this.cards.forEach((card) => {
-                const cardHTML = renderSingleCardsToGameBoard(card.imagePath);
+                const cardHTML: string = renderSingleCardsToGameBoard(card.imagePath);
                 fieldRef.insertAdjacentHTML("beforeend", cardHTML);
             });
         }  
@@ -155,32 +165,49 @@ export class GameBoard {
     }
 
 
-    //TODO: Funktion muss auf 14loc eingekürzt werden.
+    /**
+     * This function adds click event listeners to each card button on the game board. When a card is clicked, it calls the handleCardFlip
+     * function to flip the card and then checks if there are two flipped cards to handle matching logic.
+     */
     flipCardsEventListener(): void {
-    const buttonElements: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
-    buttonElements.forEach((button, index) => {
-        button.addEventListener("click", () => {
-            const clickedCard: GameCard = this.cards[index];
-            if (clickedCard.isFlipped || clickedCard.isMatched) return;
-            clickedCard.changeFlipStatus();
-            this.flippedCards.push(clickedCard);
-            if (this.flippedCards.length === 2) {
-                const [card1, card2] = this.flippedCards;
-                if (this.checkMatch(card1, card2)) {
-                    console.log("It's a match!");
-                } else {
-                    console.log("Not a match, flipping back...");
-                    setTimeout(() => {
-                        card1.changeFlipStatus();
-                        card2.changeFlipStatus();
-                        this.flipBack(card1, card2);                    
-                    }, 1000);
-                }
-                this.flippedCards = [];
-            }
-        });
+        const buttonElements: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
+        buttonElements.forEach((button, index) => {
+            button.addEventListener("click", () => {
+                this.handleCardFlip(index, button);
+                this.handleTwoFlippedCards();
+                // this.showWinMessageIfAllCardsMatched();
+            });
+        }
+        );
     }
-    );
+
+
+    /**
+     * This function handles the logic for flipping a card when it is clicked. 
+     * @param index The index of the clicked card in the cards array.
+     * @param button The HTML button element representing the clicked card.
+     * @returns void
+     */
+    handleCardFlip(index: number, button: HTMLButtonElement): void {
+        const clickedCard: GameCard = this.cards[index];
+        if (clickedCard.isFlipped || clickedCard.isMatched) return;
+        clickedCard.changeFlipStatus();
+        this.flippedCards.push(clickedCard);
+    }
+
+
+    /**
+     * This function checks if there are two flipped cards and handles the logic for matching or flipping them back. 
+     */
+    handleTwoFlippedCards(): void {
+        if (this.flippedCards.length === 2) {
+            const [card1, card2] = this.flippedCards;
+            if (this.checkMatch(card1, card2)) {
+                this.handleMatch(card1, card2);
+            } else {
+                this.handleNoMatch(card1, card2);
+            }
+        }
     }
 
 
@@ -203,6 +230,99 @@ export class GameBoard {
 
 
     /**
+     * This function handles the logic for when two flipped cards match. It highlights the matched cards and disables further flipping of those cards.
+     * @param card1 The first matched card.
+     * @param card2 The second matched card.
+     */
+    handleMatch(card1: GameCard, card2: GameCard): void {
+        this.highlightMatchedCards(card1, card2);
+        this.disableFlipMatchingCards(card1, card2);
+        this.updateScore();
+        this.flippedCards = [];
+    }
+
+
+    /**
+     * This function highlights the two matched cards by adding the "is-matched" class to the corresponding button elements 
+     * in the DOM after a short delay.
+     * @param card1 The first matched card.
+     * @param card2 The second matched card.
+     */
+    highlightMatchedCards(card1: GameCard, card2: GameCard): void {
+        const buttonElements: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
+        setTimeout(() => {
+            buttonElements.forEach((button, index) => {
+                const currentCard: GameCard = this.cards[index];
+                if (currentCard === card1 || currentCard === card2) {
+                    if (!button.classList.contains("is-matched")) {
+                        button.classList.add("is-matched");
+                    }
+                }
+            });
+        }, 500);
+    }
+
+
+    /**
+     * This function disables the flipping of the two matched cards by setting the pointer events to "none" for the corresponding 
+     * button elements in the DOM.
+     * @param card1 The first matched card.
+     * @param card2 The second matched card.
+     */
+    disableFlipMatchingCards(card1: GameCard, card2: GameCard): void {
+        const buttonElements: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
+        buttonElements.forEach((button, index) => {
+            const currentCard: GameCard = this.cards[index];
+            if (currentCard === card1 || currentCard === card2) {
+                button.style.pointerEvents = "none";
+            }
+        });
+    }
+
+
+    /**
+     * This function updates the score for the current player when a match is found. 
+     */
+    updateScore(): void {
+        if (this.nextPlayer) {
+            this.score[this.nextPlayer] += 1;
+            this.updateScoreDisplay();
+        }
+    }
+
+
+    /**
+     * This function updates the score display in the DOM for both players.
+     */
+    updateScoreDisplay(): void {
+        const blueScoreElement: HTMLElement | null = document.getElementById("score_blue");
+        const orangeScoreElement: HTMLElement | null = document.getElementById("score_orange");
+        if (blueScoreElement) {
+            blueScoreElement.textContent = this.score.Blue.toString();
+        }
+        if (orangeScoreElement) {
+            orangeScoreElement.textContent = this.score.Orange.toString();
+        }
+    }
+
+    /**
+     * This function handles the logic for when two flipped cards do not match. It flips the cards back to their original 
+     * state after a short delay.
+     * @param card1 The first card that did not match.
+     * @param card2 The second card that did not match.
+     */
+    handleNoMatch(card1: GameCard, card2: GameCard): void {
+        setTimeout(() => {
+            card1.changeFlipStatus();
+            card2.changeFlipStatus();
+            this.flipBack(card1, card2);                    
+            this.showNextPlayerIfLastTwoFlippedCardsDidNotMatch();
+            this.flippedCards = [];
+        }, 1000);
+    }
+
+
+    /**
      * This function flips the two specified cards back to their original state by removing the "is-flipped" class 
      * from the corresponding button elements in the DOM.
      * @param card1 The first card to flip back.
@@ -221,6 +341,51 @@ export class GameBoard {
     }
 
 
+    /**
+     * This function checks if the last two flipped cards do not match and, if so, it calls the setNextPlayer function 
+     * to switch to the next player's turn.
+     */
+    showNextPlayerIfLastTwoFlippedCardsDidNotMatch(): void {
+        if (this.flippedCards.length === 2 && !this.checkMatch(this.flippedCards[0], this.flippedCards[1])) {
+            this.setNextPlayer();
+        }
+    }
+
+
+    /**
+     * This function sets the next player for the game. If there is no next player currently set and a player is defined in the  
+     * settings, it sets the next player to the player defined in the settings. Otherwise, it toggles the next player between "Blue" and "Orange".
+     */
+    setNextPlayer(): void {
+        if (this.nextPlayer === null && this.settings.player) {
+            this.nextPlayer = this.settings.player;
+        } else {
+            this.nextPlayer = this.nextPlayer === "Blue" ? "Orange" : "Blue";
+        }
+        this.updateNextPlayerDisplay();
+    }
+
+
+    /**
+     * This function updates the display to show which player's turn is next by toggling the visibility of the corresponding player indicators.
+     */
+    updateNextPlayerDisplay(): void {
+        const nextPlayerDisplay: HTMLElement | null = document.getElementById("next-player-display");
+        if (!nextPlayerDisplay) return;
+        const bluePlayerIndicator: HTMLElement | null = nextPlayerDisplay.querySelector(".next-turn__current-player-blue");
+        const orangePlayerIndicator: HTMLElement | null = nextPlayerDisplay.querySelector(".next-turn__current-player-orange");
+        if (!bluePlayerIndicator || !orangePlayerIndicator) return;
+
+        if (this.nextPlayer === "Blue") {
+            bluePlayerIndicator.style.display = "inline";
+            orangePlayerIndicator.style.display = "none";
+        } else {
+            bluePlayerIndicator.style.display = "none";
+            orangePlayerIndicator.style.display = "inline";
+        }
+    }
+
+
     resetBoard(): void {
         this.flippedCards = [];
         this.matchedCards = [];
@@ -229,5 +394,7 @@ export class GameBoard {
             card.isMatched = false;
         });
         this.shuffleCards(); // ggf. nicht erforderlich, je nachdem, ob du die Karten nach jedem Spiel neu mischen möchtest
+        this.nextPlayer = null;
+        this.updateNextPlayerDisplay();
     }
 }

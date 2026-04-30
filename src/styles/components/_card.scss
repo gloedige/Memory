@@ -35,4 +35,17 @@
     &.is-flipped .card__inner{
         transform: rotateY(180deg);
     }
+
+    &.is-matched .card__inner{
+        position: relative;
+        cursor: default;
+        box-shadow: -6px 6px 8px colors.$light_cyan;
+    }
+
+    &.is-matched .card__inner::after{
+        content: "";
+        position: absolute;
+        inset: 0;
+        box-shadow: inset 0 0 0 5px colors.$cyan;
+    }
 }
