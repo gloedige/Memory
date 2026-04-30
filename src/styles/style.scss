@@ -1,12 +1,18 @@
 @use 'components/main';
 @use 'pages/pages';
+@use 'themes/themes';
 @use 'base/fonts';
 @use 'abstract/mixin' as mx;
 @use 'abstract/color_variables' as colors;
 
+:root {
+    --clr-body-bg: #{colors.$dark_gray};
+}
+
+
 body{
     height: 100vh;
-    background-color: colors.$dark_gray;
+    background-color: var(--clr-body-bg);
     margin: 0;
 }
 

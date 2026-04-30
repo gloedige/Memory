@@ -1,0 +1,5 @@
+@use '../abstract/color_variables' as colors;
+
+:root:has(.gaming-theme) {
+    --clr-body-bg: #{colors.$petrol};
+}

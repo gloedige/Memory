@@ -58,6 +58,7 @@ export class GameBoard {
         this.winner = null;
         this.cards = [];
         this.getSettingsFromLocalStorage();
+        this.setThemeBasedOnSettings();
         this.loadImages(this.CODE_VIBES_CARDS_IMAGES);
         this.createArrayOfGameCards();
         this.shuffleCards();
@@ -140,6 +141,18 @@ export class GameBoard {
             this.settings = JSON.parse(storedSettings);
         } else {
             console.warn("No settings found in local storage, using default settings.");
+        }
+    }
+
+
+
+    setThemeBasedOnSettings(): void {
+        const bodyElement: HTMLElement | null = document.querySelector("body");
+        if (!bodyElement) return;
+        if (this.settings.theme === "Code vibes theme") {
+            bodyElement.classList.add("code-vibes-theme");
+        } else if (this.settings.theme === "Gaming theme") {
+            bodyElement.classList.add("gaming-theme");
         }
     }
 

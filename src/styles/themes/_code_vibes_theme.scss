@@ -1,0 +1,5 @@
+@use '../abstract/color_variables' as colors;
+
+:root:has(.code-vibes-theme) {
+    --clr-body-bg: #{colors.$dark_gray};
+}
