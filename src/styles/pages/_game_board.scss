@@ -1,5 +1,33 @@
 @use '../abstract/color_variables' as colors;
 
+:root {
+    --font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
+    --show-code-vibes-theme-element: block;
+    --show-gaming-theme-element: none;
+
+    --clr-board-header-bg: #{colors.$dark_gray};
+    --pd-board-header: 0;
+
+    --clr-score-board-bg: #{colors.$dark_green};
+    --clr-score-board-txt-blue: #{colors.$blue};
+    --clr-score-board-txt-orange: #{colors.$orange};
+    --rad-score-board: 0;
+    --show-display-title: block;
+}
+
+.gaming-theme{
+    &__element{
+        display: var(--show-gaming-theme-element);
+    }
+}
+
+.code-vibes-theme{
+    &__element{
+        display: var(--show-code-vibes-theme-element);
+    }
+}
+
+
 .game-board-wrapper{
     display: flex;
     flex-direction: column;
@@ -21,27 +49,36 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    background-color: var(--clr-board-header-bg);
+    padding: var(--pd-board-header);
+    box-sizing: border-box;
+    border-radius: 10px;
 }
     
 .score-board{
     display: flex;
     gap: 20px;
     padding: 16px 20px;
-    background-color: colors.$dark_green;
+    background-color: var(--clr-score-board-bg);
+    border-radius: var(--rad-score-board);
     
     &__item{
         display: flex;
         align-items: center;
         gap: 8px;
-        font-family: 'Red Rose Bold', 'Times New Roman', Times, serif;
+        font-family: var(--font-family);
         font-size: 1.5rem;
         
         &--blue{
-            color: colors.$blue;
+            color: var(--clr-score-board-txt-blue);
         }
         
         &--orange{
-            color: colors.$orange;
+            color: var(--clr-score-board-txt-orange);
+        }
+
+        &--display-title{
+            display: var(--show-display-title);
         }
     }
 }
@@ -50,8 +87,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
-    font-size: 1.5rem;
+    font-family: var(--font-family);
+    font-size: 2rem;
     
     &__player{
         color: colors.$white;

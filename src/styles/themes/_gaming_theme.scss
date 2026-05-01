@@ -2,4 +2,16 @@
 
 :root:has(.gaming-theme) {
     --clr-body-bg: #{colors.$petrol};
+    --font-family: 'Orbitron Bold', 'Times New Roman', Times, serif;
+    --show-code-vibes-theme-element: none;
+    --show-gaming-theme-element: block;
+
+    --clr-board-header-bg: #{colors.$transparent_pink};
+    --pd-board-header: 24px;
+
+    --clr-score-board-bg: #{colors.$white};
+    --clr-score-board-txt-blue: #{colors.$dark_blue};
+    --clr-score-board-txt-orange: #{colors.$dark_orange};
+    --rad-score-board: 10px;
+    --show-display-title: none;
 }
