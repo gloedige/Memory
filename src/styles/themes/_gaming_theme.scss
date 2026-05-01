@@ -23,4 +23,11 @@
     --pd-primary-button-border: 14px 20px;
     --clr-primary-button-shadow: 4px 4px 4px #{colors.$petrol};
     --marg-primary-button-exit-game: 0;
+
+    --grid-column-width: 105px;
+    --grid-row-height: 120px;
+    --card-width: 105px;
+    --rad-is-matched: 12px;
+    --clr-is-matched-shadow: #{colors.$transparent_pink};
+    --is-matched-border: inset 0 0 0 3px #{colors.$pink};
 }

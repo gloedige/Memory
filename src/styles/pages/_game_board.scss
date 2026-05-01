@@ -14,6 +14,9 @@
 
     --clr-player-blue-bg: none;
     --clr-player-orange-bg: none;
+
+    --grid-column-width: 120px;
+    --grid-row-height: 120px;
 }
 
 .is-hidden{
@@ -111,14 +114,15 @@
 .field{
     display: grid;
     cursor: pointer;
-    grid-auto-rows: 120px;
-    gap: 16px;
-
+    grid-auto-rows: var(--grid-row-height);
+    
     &__16-cards{
-        grid-template-columns: repeat(4, 120px);
+        gap: 16px;
+        grid-template-columns: repeat(4, var(--grid-column-width));
     }
 
     &__24-cards, &__36-cards{
-        grid-template-columns: repeat(6, 120px);
+        gap: 6px;
+        grid-template-columns: repeat(6, var(--grid-column-width));
     }
 }

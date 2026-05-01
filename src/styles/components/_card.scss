@@ -1,8 +1,15 @@
 @use '../abstract/color_variables' as colors;
 
+:root {
+    --card-width: 120px;
+    --rad-is-matched: 0;
+    --clr-is-matched-shadow: #{colors.$light_cyan};
+    --is-matched-border: inset 0 0 0 5px #{colors.$cyan};
+}
+
 .card{
-    height: 120px;
-    aspect-ratio: 1/1;
+    // height: 120px;
+    // aspect-ratio: 1/1;
     background-color: transparent;
     border: none;
     padding: 0;
@@ -10,7 +17,7 @@
     
     &__inner{
         position: relative;
-        width: 120px;
+        width: var(--card-width);
         height: 120px;
         transform-style: preserve-3d;
         transition: all 0.5s ease-in-out;
@@ -23,11 +30,11 @@
         backface-visibility: hidden;
 
         &--front{
-            background-color: colors.$white;
+            background-color: transparent;
         }
 
         &--back{
-            background-color: colors.$dark_green;
+            background-color: transparent;
             transform: rotateY(180deg);
         }
     }
@@ -39,13 +46,15 @@
     &.is-matched .card__inner{
         position: relative;
         cursor: default;
-        box-shadow: -6px 6px 8px colors.$light_cyan;
+        box-shadow: -6px 6px 8px var(--clr-is-matched-shadow);
+        border-radius: var(--rad-is-matched);
     }
 
     &.is-matched .card__inner::after{
         content: "";
         position: absolute;
         inset: 0;
-        box-shadow: inset 0 0 0 5px colors.$cyan;
+        box-shadow: var(--is-matched-border);
+        border-radius: var(--rad-is-matched);
     }
 }

@@ -25,24 +25,24 @@ export class GameBoard {
         CODE_VIBES_CARD_BACK: string = "../assets/images/code_vibes_theme/code_vibes_card_back.svg";
 
         GAMES_CARDS_IMAGES: string[] = [
-        "../assets/images/games_theme/gaming_theme_01.svg",
-        "../assets/images/games_theme/gaming_theme_02.svg",
-        "../assets/images/games_theme/gaming_theme_03.svg",
-        "../assets/images/games_theme/gaming_theme_04.svg",
-        "../assets/images/games_theme/gaming_theme_05.svg",
-        "../assets/images/games_theme/gaming_theme_06.svg",
-        "../assets/images/games_theme/gaming_theme_07.svg",
-        "../assets/images/games_theme/gaming_theme_08.svg",
-        "../assets/images/games_theme/gaming_theme_09.svg",
-        "../assets/images/games_theme/gaming_theme_10.svg",
-        "../assets/images/games_theme/gaming_theme_11.svg",
-        "../assets/images/games_theme/gaming_theme_12.svg",
-        "../assets/images/games_theme/gaming_theme_13.svg",
-        "../assets/images/games_theme/gaming_theme_14.svg",
-        "../assets/images/games_theme/gaming_theme_15.svg",
-        "../assets/images/games_theme/gaming_theme_16.svg",
-        "../assets/images/games_theme/gaming_theme_17.svg",
-        "../assets/images/games_theme/gaming_theme_18.svg"
+        "../assets/images/games_theme/games_theme_01.svg",
+        "../assets/images/games_theme/games_theme_02.svg",
+        "../assets/images/games_theme/games_theme_03.svg",
+        "../assets/images/games_theme/games_theme_04.svg",
+        "../assets/images/games_theme/games_theme_05.svg",
+        "../assets/images/games_theme/games_theme_06.svg",
+        "../assets/images/games_theme/games_theme_07.svg",
+        "../assets/images/games_theme/games_theme_08.svg",
+        "../assets/images/games_theme/games_theme_09.svg",
+        "../assets/images/games_theme/games_theme_10.svg",
+        "../assets/images/games_theme/games_theme_11.svg",
+        "../assets/images/games_theme/games_theme_12.svg",
+        "../assets/images/games_theme/games_theme_13.svg",
+        "../assets/images/games_theme/games_theme_14.svg",
+        "../assets/images/games_theme/games_theme_15.svg",
+        "../assets/images/games_theme/games_theme_16.svg",
+        "../assets/images/games_theme/games_theme_17.svg",
+        "../assets/images/games_theme/games_theme_18.svg"
         ];
         GAMES_CARD_BACK: string = "../assets/images/games_theme/gaming_card_back.svg";
 

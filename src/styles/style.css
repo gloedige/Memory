@@ -1,33 +1,4 @@
-.card {
-  height: 120px;
-  aspect-ratio: 1/1;
-  background-color: transparent;
-  border: none;
-  padding: 0;
-}
-.card__inner {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  transform-style: preserve-3d;
-  transition: all 0.5s ease-in-out;
-}
-.card__face {
-  position: absolute;
-  inset: 0;
-  background-color: transparent;
-  backface-visibility: hidden;
-}
-.card__face--front {
-  background-color: #FFFFFF;
-}
-.card__face--back {
-  background-color: #415652;
-  transform: rotateY(180deg);
-}
-.card.is-flipped .card__inner {
-  transform: rotateY(180deg);
-}
+
 
 .button {
   cursor: pointer;
