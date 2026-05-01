@@ -11,5 +11,15 @@
     --clr-score-board-txt-blue: #{colors.$dark_blue};
     --clr-score-board-txt-orange: #{colors.$dark_orange};
     --rad-score-board: 10px;
-    --show-display-title: none;
+    --hide-element: none;
+
+    --clr-player-blue-bg: #{colors.$dark_blue};
+    --clr-player-orange-bg: #{colors.$dark_orange};
+
+    --clr-primary-button-bg: #{colors.$transparent};
+    --clr-primary-button-border: 2px solid #{colors.$pink};
+    --clr-primary-button-border-hover: 2px solid #{colors.$pink};
+    --rad-primary-button: 10px;
+    --pd-primary-button-border: 14px 20px;
+    --clr-primary-button-shadow: 4px 4px 4px #{colors.$petrol};
 }

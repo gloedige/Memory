@@ -380,6 +380,7 @@ export class GameBoard {
             this.nextPlayer = this.nextPlayer === "Blue" ? "Orange" : "Blue";
         }
         this.updateNextPlayerDisplay();
+        this.updateNextPlayerBackgroundColor();
     }
 
 
@@ -401,6 +402,21 @@ export class GameBoard {
             orangePlayerIndicator.style.display = "inline";
         }
     }
+
+
+    updateNextPlayerBackgroundColor(): void {
+        const nextPlayerIconWrapper: HTMLElement | null = document.getElementById("current_player_icon_wrapper");
+        if (!nextPlayerIconWrapper) return;
+
+        if (this.nextPlayer === "Blue") {
+            nextPlayerIconWrapper.classList.add("next-turn__icon-wrapper--blue-background");
+            nextPlayerIconWrapper.classList.remove("next-turn__icon-wrapper--orange-background");
+        } else {
+            nextPlayerIconWrapper.classList.add("next-turn__icon-wrapper--orange-background");
+            nextPlayerIconWrapper.classList.remove("next-turn__icon-wrapper--blue-background");
+        }
+    }
+    
 
     //TODO: integriere diese Funktion, um das Spiel zurückzusetzen, wenn der Spieler auf "Play Again" klickt. Aktuell wird dafür die Seite neu geladen, was auch funktioniert, aber mit dieser Funktion
     resetBoard(): void {

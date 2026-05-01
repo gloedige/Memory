@@ -3,25 +3,36 @@
 :root {
     --clr-board-header-bg: #{colors.$dark_gray};
     --pd-board-header: 0;
+
+    --clr-primary-button-bg: #{colors.$dark_green};
+    --clr-primary-button-txt: #{colors.$white};
+    --clr-primary-button-border: 1px solid #{colors.$cyan};
+    --clr-primary-button-border-hover: 2px solid #{colors.$cyan};
+    --rad-primary-button: 0;
+    --pd-primary-button-border: 16px 24px;
+    --clr-primary-button-shadow: 4px 4px 4px #{colors.$dark_green};
 }
 
 .button{
     cursor: pointer;
     display: flex;
     align-items: center;
-    font-family: 'Red Rose Bold', 'Times New Roman', Times, serif;
+    font-family: var(--font-family);
     
     &__primary{
-        background-color: colors.$dark_green;
-        color: colors.$white;
-        border: 1px solid colors.$cyan;
-        padding: 16px 24px;
+        background-color: var(--clr-primary-button-bg);
+        color: var(--clr-primary-button-txt);
+        border: var(--clr-primary-button-border);
+        border-radius: var(--rad-primary-button);
+        padding: var(--pd-primary-button-border);
         font-size: 1.5rem;
         gap: 10px;
+        outline: 2px solid transparent;
+        outline-offset: 0;
         
         &:hover{
-            border: 2px solid colors.$cyan;
-            box-shadow: 4px 4px 4px colors.$dark_green;
+            outline: var(--clr-primary-button-border-hover);
+            box-shadow: var(--clr-primary-button-shadow);
         }
 
         &--exit-game{

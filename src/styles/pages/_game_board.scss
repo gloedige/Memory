@@ -10,7 +10,14 @@
     --clr-score-board-txt-blue: #{colors.$blue};
     --clr-score-board-txt-orange: #{colors.$orange};
     --rad-score-board: 0;
-    --show-display-title: block;
+    --hide-element: block;
+
+    --clr-player-blue-bg: none;
+    --clr-player-orange-bg: none;
+}
+
+.is-hidden{
+    display: var(--hide-element);
 }
 
 
@@ -62,10 +69,6 @@
         &--orange{
             color: var(--clr-score-board-txt-orange);
         }
-
-        &--display-title{
-            display: var(--show-display-title);
-        }
     }
 }
 
@@ -86,6 +89,22 @@
     
     &__current-player-orange{
         display: none;
+    }
+    
+    &__icon-wrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 3px;
+        
+        &--blue-background{
+            background-color: var(--clr-player-blue-bg);
+        }
+        &--orange-background{
+            background-color: var(--clr-player-orange-bg);
+        }
     }
 }
 
