@@ -1,5 +1,10 @@
 @use '../abstract/color_variables' as colors;
 
+:root {
+    --clr-board-header-bg: #{colors.$dark_gray};
+    --pd-board-header: 0;
+}
+
 .button{
     cursor: pointer;
     display: flex;
