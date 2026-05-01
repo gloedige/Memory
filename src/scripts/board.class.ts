@@ -45,20 +45,14 @@ export class GameBoard {
      * of game cards based on the selected board size, shuffles the cards, renders them to the game board, 
      * adds event listeners for flipping the cards, and sets the initial player for the game.
      */
-    constructor() {
+    constructor(settings: { theme: "Code vibes theme" | "Gaming theme" | null, player: "Blue" | "Orange" | null, boardSize: "16 cards" | "24 cards" | "36 cards" | null }) {
         this.score =  {
             Blue: 0,
             Orange: 0
         };
-        this.settings = {
-            theme: null,
-            player: null,
-            boardSize: null
-        };
+        this.settings = settings;
         this.winner = null;
         this.cards = [];
-        this.getSettingsFromLocalStorage();
-        this.setThemeBasedOnSettings();
         this.loadImages(this.CODE_VIBES_CARDS_IMAGES);
         this.createArrayOfGameCards();
         this.shuffleCards();
@@ -128,32 +122,6 @@ export class GameBoard {
         const fieldRef: HTMLElement | null = document.getElementById("field");
         if (!fieldRef) return;
         fieldRef.classList.add(`field__${boardSize}-cards`);
-    }
-
-
-    /**
-     * This function retrieves the game settings from local storage and updates the settings property of the GameBoard instance.
-     * If no settings are found, it logs a warning message and keeps the default settings.
-     */
-    getSettingsFromLocalStorage(): void {
-        const storedSettings: string | null = localStorage.getItem("memory_game_settings");
-        if (storedSettings) {
-            this.settings = JSON.parse(storedSettings);
-        } else {
-            console.warn("No settings found in local storage, using default settings.");
-        }
-    }
-
-
-
-    setThemeBasedOnSettings(): void {
-        const bodyElement: HTMLElement | null = document.querySelector("body");
-        if (!bodyElement) return;
-        if (this.settings.theme === "Code vibes theme") {
-            bodyElement.classList.add("code-vibes-theme");
-        } else if (this.settings.theme === "Gaming theme") {
-            bodyElement.classList.add("gaming-theme");
-        }
     }
 
 
@@ -434,7 +402,7 @@ export class GameBoard {
         }
     }
 
-
+    //TODO: integriere diese Funktion, um das Spiel zurückzusetzen, wenn der Spieler auf "Play Again" klickt. Aktuell wird dafür die Seite neu geladen, was auch funktioniert, aber mit dieser Funktion
     resetBoard(): void {
         this.flippedCards = [];
         this.matchedCards = [];

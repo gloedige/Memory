@@ -211,6 +211,8 @@ function enableStartGameButtonIfAllOptionsSelected(){
  * showing/hiding the exit game dialog.
  */
 document.addEventListener("DOMContentLoaded", () => {
+    getSettingsFromLocalStorage();
+    setThemeBasedOnSettings();
     handleGameBoardInitialization();
     const { winner, score }: { winner: string, score: { Blue: number, Orange: number } } = getGameResultsFromLocalStorage();
     handleGameOverPageInitialization(score);
@@ -219,12 +221,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /**
+ * This function retrieves the game settings from local storage and updates the settings property of the GameBoard instance.
+ * If no settings are found, it logs a warning message and keeps the default settings.
+ */
+function getSettingsFromLocalStorage(): void {
+    const storedSettings: string | null = localStorage.getItem("memory_game_settings");
+    if (storedSettings) {
+        settings = JSON.parse(storedSettings);
+    } else {
+        console.warn("No settings found in local storage, using default settings.");
+    }
+}
+
+
+/**
+ * This function sets the theme of the game based on the selected theme in the settings object. It adds the appropriate 
+ * CSS class to the body element.
+ */
+function setThemeBasedOnSettings(): void {
+    const bodyElement: HTMLElement | null = document.querySelector("body");
+    if (!bodyElement) return;
+    if (settings.theme === "Code vibes theme") {
+        bodyElement.classList.add("code-vibes-theme");
+    } else if (settings.theme === "Gaming theme") {
+        bodyElement.classList.add("gaming-theme");
+    }
+}
+
+
+/**
  * This function initializes the game board by creating a new GameBoard instance.
  */
 function handleGameBoardInitialization(){
     const fieldRef: HTMLElement | null = document.getElementById("field");
     if (!fieldRef) return;
-    new GameBoard();
+    new GameBoard(settings);
 }
 
 
