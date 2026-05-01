@@ -11,6 +11,7 @@
     --rad-primary-button: 0;
     --pd-primary-button-border: 16px 24px;
     --clr-primary-button-shadow: 4px 4px 4px #{colors.$dark_green};
+    --marg-primary-button-exit-game: 100px;
 }
 
 .button{
@@ -36,7 +37,7 @@
         }
 
         &--exit-game{
-            margin-left: 100px;
+            margin-left: var(--marg-primary-button-exit-game);
         }
     }
     

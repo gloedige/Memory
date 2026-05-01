@@ -21,9 +21,33 @@ export class GameBoard {
         "../assets/images/code_vibes_theme/code_vibes_theme_16.svg",
         "../assets/images/code_vibes_theme/code_vibes_theme_17.svg",
         "../assets/images/code_vibes_theme/code_vibes_theme_18.svg"
-    ]
+        ];
+        CODE_VIBES_CARD_BACK: string = "../assets/images/code_vibes_theme/code_vibes_card_back.svg";
+
+        GAMES_CARDS_IMAGES: string[] = [
+        "../assets/images/games_theme/gaming_theme_01.svg",
+        "../assets/images/games_theme/gaming_theme_02.svg",
+        "../assets/images/games_theme/gaming_theme_03.svg",
+        "../assets/images/games_theme/gaming_theme_04.svg",
+        "../assets/images/games_theme/gaming_theme_05.svg",
+        "../assets/images/games_theme/gaming_theme_06.svg",
+        "../assets/images/games_theme/gaming_theme_07.svg",
+        "../assets/images/games_theme/gaming_theme_08.svg",
+        "../assets/images/games_theme/gaming_theme_09.svg",
+        "../assets/images/games_theme/gaming_theme_10.svg",
+        "../assets/images/games_theme/gaming_theme_11.svg",
+        "../assets/images/games_theme/gaming_theme_12.svg",
+        "../assets/images/games_theme/gaming_theme_13.svg",
+        "../assets/images/games_theme/gaming_theme_14.svg",
+        "../assets/images/games_theme/gaming_theme_15.svg",
+        "../assets/images/games_theme/gaming_theme_16.svg",
+        "../assets/images/games_theme/gaming_theme_17.svg",
+        "../assets/images/games_theme/gaming_theme_18.svg"
+        ];
+        GAMES_CARD_BACK: string = "../assets/images/games_theme/gaming_card_back.svg";
 
     private cards: GameCard[];
+    private cardBackPath: string | null;
     flippedCards: GameCard[] = [];
     matchedCards: GameCard[] = [];
     nextPlayer: "Blue" | "Orange" | null = null;
@@ -53,8 +77,11 @@ export class GameBoard {
         this.settings = settings;
         this.winner = null;
         this.cards = [];
+        this.cardBackPath = null;
         this.loadImages(this.CODE_VIBES_CARDS_IMAGES);
+        this.loadImages(this.GAMES_CARDS_IMAGES);
         this.createArrayOfGameCards();
+        this.getCardBackPathBasedOnTheme();
         this.shuffleCards();
         this.renderCardsToBoard();
         this.flipCardsEventListener();
@@ -86,10 +113,28 @@ export class GameBoard {
         const boardSize: number = this.determineBoardSizeBasedOnSettings();
         this.setGridSizeClassOnField(boardSize);
         for(let i = 0; i < boardSize / 2; i++){
-            const imagePath = this.CODE_VIBES_CARDS_IMAGES[i];
+            let imagePath: string = this.CODE_VIBES_CARDS_IMAGES[i];
+            if (this.settings.theme === "Gaming theme") {
+                imagePath = this.GAMES_CARDS_IMAGES[i];
+            }
             const card1 = new GameCard(i, imagePath);
             const card2 = new GameCard(i, imagePath);
             this.cards.push(card1, card2);
+        }
+    }
+
+
+    /**
+     * This function sets the card back image path based on the selected theme in the settings. It checks the theme 
+     * and assigns the corresponding card back path to the cardBackPath property of the GameBoard class.
+     */
+    getCardBackPathBasedOnTheme(): void {
+        if (this.settings.theme === "Code vibes theme") {
+            this.cardBackPath = this.CODE_VIBES_CARD_BACK;
+        } else if (this.settings.theme === "Gaming theme") {
+            this.cardBackPath = this.GAMES_CARD_BACK;
+        } else {
+            this.cardBackPath = this.CODE_VIBES_CARD_BACK;
         }
     }
 
@@ -146,7 +191,7 @@ export class GameBoard {
             return;
         } else {
             this.cards.forEach((card) => {
-                const cardHTML: string = renderSingleCardsToGameBoard(card.imagePath);
+                const cardHTML: string = renderSingleCardsToGameBoard(card.imagePath, this.cardBackPath!);
                 fieldRef.insertAdjacentHTML("beforeend", cardHTML);
             });
         }  
@@ -404,6 +449,9 @@ export class GameBoard {
     }
 
 
+    /**
+     * This function set the background color of the next player icon.
+     */
     updateNextPlayerBackgroundColor(): void {
         const nextPlayerIconWrapper: HTMLElement | null = document.getElementById("current_player_icon_wrapper");
         if (!nextPlayerIconWrapper) return;
@@ -416,7 +464,7 @@ export class GameBoard {
             nextPlayerIconWrapper.classList.remove("next-turn__icon-wrapper--blue-background");
         }
     }
-    
+
 
     //TODO: integriere diese Funktion, um das Spiel zurückzusetzen, wenn der Spieler auf "Play Again" klickt. Aktuell wird dafür die Seite neu geladen, was auch funktioniert, aber mit dieser Funktion
     resetBoard(): void {
