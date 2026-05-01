@@ -213,6 +213,7 @@ function enableStartGameButtonIfAllOptionsSelected(){
 document.addEventListener("DOMContentLoaded", () => {
     getSettingsFromLocalStorage();
     setThemeBasedOnSettings();
+    setThemeIconsBasedOnSettings();
     handleGameBoardInitialization();
     const { winner, score }: { winner: string, score: { Blue: number, Orange: number } } = getGameResultsFromLocalStorage();
     handleGameOverPageInitialization(score);
@@ -246,6 +247,22 @@ function setThemeBasedOnSettings(): void {
     } else if (settings.theme === "Gaming theme") {
         bodyElement.classList.add("gaming-theme");
     }
+}
+
+
+/**
+ * This function sets score-board icon sources based on the selected theme.
+ */
+function setThemeIconsBasedOnSettings(): void {
+    const themeIdentifier: "codeVibes" | "gaming" = settings.theme === "Gaming theme" ? "gaming" : "codeVibes";
+    const themeDataAttribute: string = themeIdentifier === "gaming" ? "iconGaming" : "iconCodeVibes";
+    const themeIconRefs: NodeListOf<HTMLImageElement> = document.querySelectorAll("img[data-icon-code-vibes][data-icon-gaming]");
+    themeIconRefs.forEach((iconRef) => {
+        const sourcePath: string | undefined = iconRef.dataset[themeDataAttribute];
+        if(sourcePath){
+            iconRef.src = sourcePath;
+        }
+    });
 }
 
 

@@ -3,8 +3,6 @@
 :root:has(.code-vibes-theme) {
     --clr-body-bg: #{colors.$dark_gray};
     --font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
-    --show-code-vibes-theme-element: block;
-    --show-gaming-theme-element: none;
 
     --clr-board-header-bg: #{colors.$dark_gray};
     --pd-board-header: 0;
@@ -13,5 +11,5 @@
     --clr-score-board-txt-blue: #{colors.$blue};
     --clr-score-board-txt-orange: #{colors.$orange};
     --rad-score-board: 0;
-    --show-display-title: none;
+    --show-display-title: block;
 }
