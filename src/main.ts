@@ -214,6 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getSettingsFromLocalStorage();
     setThemeBasedOnSettings();
     setThemeIconsBasedOnSettings();
+    setDialogBtnTextBasedOnSettings();
     handleGameBoardInitialization();
     const { winner, score }: { winner: string, score: { Blue: number, Orange: number } } = getGameResultsFromLocalStorage();
     handleGameOverPageInitialization(score);
@@ -263,6 +264,22 @@ function setThemeIconsBasedOnSettings(): void {
             iconRef.src = sourcePath;
         }
     });
+}
+
+
+
+function setDialogBtnTextBasedOnSettings(): void {
+    const backToGameBtnRef: HTMLButtonElement | null = document.getElementById("back_to_game") as HTMLButtonElement | null;
+    const exitGameBtnRef: HTMLButtonElement | null = document.getElementById("exit_game_dialog_btn") as HTMLButtonElement | null;
+    if (backToGameBtnRef && exitGameBtnRef) {
+        if (settings.theme === "Gaming theme") {
+            backToGameBtnRef.textContent = "No, back to game";
+            exitGameBtnRef.textContent = "Yes, quit game";
+        } else if (settings.theme === "Code vibes theme") {
+            backToGameBtnRef.textContent = "Back to Game";
+            exitGameBtnRef.textContent = "Exit Game";
+        }
+    }
 }
 
 

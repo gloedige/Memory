@@ -30,4 +30,18 @@
     --rad-is-matched: 0;
     --clr-is-matched-shadow: #{colors.$light_cyan};
     --is-matched-border: inset 0 0 0 5px #{colors.$cyan};
+
+    --clr-dialog-button-shadow-hover: 4px 4px 4px #{colors.$hover_cyan};
+    --clr-dialog-bg: #{colors.$white};
+    --rad-dialog-bdr: 0;
+    --clr-dialog-btn-bdr: 2px solid #{colors.$cyan};
+    --rad-dialog-btn: 0;
+    --clr-dialog-back-btn-bg: #{colors.$cyan};
+    --clr-dialog-exit-btn-bg: #{colors.$light_cyan};
+    --clr-dialog-exit-btn-txt: #{colors.$cyan};
+    --pd-dialog-btn: 16px 24px;
+    --clr-dialog-back-btn-bg-hover: #{colors.$hover_cyan};
+    --clr-dialog-exit-btn-bg-hover: #{colors.$hover_cyan};
+    --clr-dialog-back-btn-txt-hover: #{colors.$cyan};
+    --clr-dialog-exit-btn-txt-hover: #{colors.$cyan};
 }

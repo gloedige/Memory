@@ -11,7 +11,20 @@
     --rad-primary-button: 0;
     --pd-primary-button-border: 16px 24px;
     --clr-primary-button-shadow: 4px 4px 4px #{colors.$dark_green};
+    --clr-dialog-button-shadow-hover: 4px 4px 4px #{colors.$hover_cyan};
     --marg-primary-button-exit-game: 100px;
+
+    --clr-dialog-btn-bg: #{colors.$dark_green};
+    --clr-dialog-btn-bdr: 2px solid #{colors.$cyan};
+    --rad-dialog-btn: 0;
+    --clr-dialog-back-btn-bg: #{colors.$cyan};
+    --clr-dialog-exit-btn-bg: #{colors.$light_cyan};
+    --clr-dialog-exit-btn-txt: #{colors.$cyan};
+    --pd-dialog-btn: 16px 24px;
+    --clr-dialog-back-btn-bg-hover: #{colors.$hover_cyan};
+    --clr-dialog-exit-btn-bg-hover: #{colors.$hover_cyan};
+    --clr-dialog-back-btn-txt-hover: #{colors.$cyan};
+    --clr-dialog-exit-btn-txt-hover: #{colors.$cyan};
 }
 
 .button{
@@ -120,27 +133,30 @@
 
     &__dialog{
         color: colors.$white;
-        padding: 16px 24px;
+        padding: var(--pd-dialog-btn);
         font-size: 1.25rem;
-        border: 2px solid colors.$cyan;
+        border: var(--clr-dialog-btn-bdr);
+        border-radius: var(--rad-dialog-btn);
         
         &--back-button{
-            background-color: colors.$cyan;
+            background-color: var(--clr-dialog-back-btn-bg);
             color: colors.$white;
 
             &:hover{
-                box-shadow: 4px 4px 4px colors.$hover_cyan;
-                background-color: colors.$hover_cyan;
+                box-shadow: var(--clr-dialog-button-shadow-hover);
+                background-color: var(--clr-dialog-back-btn-bg-hover);
+                color: var(--clr-dialog-back-btn-txt-hover);
             }
         }
 
         &--exit-button{
-            background-color: colors.$light_cyan;
-            color: colors.$cyan;
+            background-color: var(--clr-dialog-exit-btn-bg);
+            color: var(--clr-dialog-exit-btn-txt);
 
             &:hover{
-                box-shadow: 4px 4px 4px colors.$hover_cyan;
-                background-color: colors.$hover_cyan;
+                box-shadow: var(--clr-dialog-button-shadow-hover);
+                background-color: var(--clr-dialog-exit-btn-bg-hover);
+                color: var(--clr-dialog-exit-btn-txt-hover);
             }
         }
     }

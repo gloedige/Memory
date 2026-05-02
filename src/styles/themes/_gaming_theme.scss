@@ -29,5 +29,19 @@
     --card-width: 105px;
     --rad-is-matched: 12px;
     --clr-is-matched-shadow: #{colors.$transparent_pink};
-    --is-matched-border: inset 0 0 0 3px #{colors.$pink};
+    --is-matched-border: inset 0 0 0 3px #{colors.$pink_2};
+
+    --clr-dialog-button-shadow-hover: 4px 4px 4px #{colors.$transparent_pink};
+    --clr-dialog-bg: #{colors.$light_gray};
+    --rad-dialog-bdr: 20px;
+    --clr-dialog-btn-bdr: 2px solid #{colors.$pink};
+    --rad-dialog-btn: 10px;
+    --clr-dialog-back-btn-bg: #{colors.$pink_2};
+    --clr-dialog-exit-btn-bg: #{colors.$transparent_pink};
+    --clr-dialog-exit-btn-txt: #{colors.$pink_2};
+    --pd-dialog-btn: 12px 20px;
+    --clr-dialog-back-btn-bg-hover: #{colors.$transparent_pink};
+    --clr-dialog-exit-btn-bg-hover: #{colors.$pink_2};
+    --clr-dialog-back-btn-txt-hover: #{colors.$pink_2};
+    --clr-dialog-exit-btn-txt-hover: #{colors.$white};
 }

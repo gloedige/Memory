@@ -1,5 +1,10 @@
 @use '../abstract/color_variables' as colors;
 
+:root{
+    --clr-dialog-bg: #{colors.$white};
+    --rad-dialog-bdr: 0;
+}
+
 .exit-game-dialog{
     display: flex;
     flex-direction: column;
@@ -7,8 +12,9 @@
     justify-content: center;
     padding: 40px;
     border: none;
+    border-radius: var(--rad-dialog-bdr);
     gap: 54px;
-    background-color: colors.$white;
+    background-color: var(--clr-dialog-bg);
     max-width: 460px;
     z-index: 1000;
     opacity: 0;
@@ -16,7 +22,7 @@
     transition: all 0.3s ease-in-out;
 
     &__question{
-        font-family: 'Red Rose Bold', 'Times New Roman', Times, serif;
+        font-family: var(--font-family);
         font-size: 2rem;
         margin: 0;
     }
