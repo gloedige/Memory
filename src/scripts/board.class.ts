@@ -1,51 +1,9 @@
 import {GameCard} from "./game_card.class";
 import { renderSingleCardsToGameBoard } from "./templates";
+import {CODE_VIBES_CARDS_IMAGES, GAMES_CARDS_IMAGES, CODE_VIBES_CARD_BACK, GAMES_CARD_BACK} from "./card_assets";
+import {updateScore, updateScoreDisplay, getWinnerIfAllCardsMatched, resetGameResultsInLocalStorage} from "./score_manager";
 
 export class GameBoard {
-        CODE_VIBES_CARDS_IMAGES: string[] = [
-        "../assets/images/code_vibes_theme/code_vibes_theme_01.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_02.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_03.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_04.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_05.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_06.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_07.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_08.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_09.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_10.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_11.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_12.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_13.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_14.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_15.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_16.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_17.svg",
-        "../assets/images/code_vibes_theme/code_vibes_theme_18.svg"
-        ];
-        CODE_VIBES_CARD_BACK: string = "../assets/images/code_vibes_theme/code_vibes_card_back.svg";
-
-        GAMES_CARDS_IMAGES: string[] = [
-        "../assets/images/games_theme/games_theme_01.svg",
-        "../assets/images/games_theme/games_theme_02.svg",
-        "../assets/images/games_theme/games_theme_03.svg",
-        "../assets/images/games_theme/games_theme_04.svg",
-        "../assets/images/games_theme/games_theme_05.svg",
-        "../assets/images/games_theme/games_theme_06.svg",
-        "../assets/images/games_theme/games_theme_07.svg",
-        "../assets/images/games_theme/games_theme_08.svg",
-        "../assets/images/games_theme/games_theme_09.svg",
-        "../assets/images/games_theme/games_theme_10.svg",
-        "../assets/images/games_theme/games_theme_11.svg",
-        "../assets/images/games_theme/games_theme_12.svg",
-        "../assets/images/games_theme/games_theme_13.svg",
-        "../assets/images/games_theme/games_theme_14.svg",
-        "../assets/images/games_theme/games_theme_15.svg",
-        "../assets/images/games_theme/games_theme_16.svg",
-        "../assets/images/games_theme/games_theme_17.svg",
-        "../assets/images/games_theme/games_theme_18.svg"
-        ];
-        GAMES_CARD_BACK: string = "../assets/images/games_theme/gaming_card_back.svg";
-
     private cards: GameCard[];
     private cardBackPath: string | null;
     flippedCards: GameCard[] = [];
@@ -78,32 +36,15 @@ export class GameBoard {
         this.winner = null;
         this.cards = [];
         this.cardBackPath = null;
-        this.resetGameResultsInLocalStorage();
-        this.loadImages(this.CODE_VIBES_CARDS_IMAGES);
-        this.loadImages(this.GAMES_CARDS_IMAGES);
+        resetGameResultsInLocalStorage();
+        this.loadImages(CODE_VIBES_CARDS_IMAGES);
+        this.loadImages(GAMES_CARDS_IMAGES);
         this.createArrayOfGameCards();
         this.getCardBackPathBasedOnTheme();
         this.shuffleCards();
         this.renderCardsToBoard();
         this.flipCardsEventListener();
         this.setNextPlayer();
-    }
-
-
-    /**
-     * This function resets the game results in local storage by setting the "memory_game_results" key to an 
-     * initial state with no winner and zero scores for both players. This is useful for starting a new game 
-     * with a clean slate.
-     */
-    resetGameResultsInLocalStorage(): void {
-        const initialResults = {
-            winner: null,
-            score: {
-                Blue: 0,
-                Orange: 0
-            }
-        };
-        localStorage.setItem("memory_game_results", JSON.stringify(initialResults));
     }
 
 
@@ -131,9 +72,9 @@ export class GameBoard {
         const boardSize: number = this.determineBoardSizeBasedOnSettings();
         this.setGridSizeClassOnField(boardSize);
         for(let i = 0; i < boardSize / 2; i++){
-            let imagePath: string = this.CODE_VIBES_CARDS_IMAGES[i];
+            let imagePath: string = CODE_VIBES_CARDS_IMAGES[i];
             if (this.settings.theme === "Gaming theme") {
-                imagePath = this.GAMES_CARDS_IMAGES[i];
+                imagePath = GAMES_CARDS_IMAGES[i];
             }
             const card1 = new GameCard(i, imagePath);
             const card2 = new GameCard(i, imagePath);
@@ -148,11 +89,11 @@ export class GameBoard {
      */
     getCardBackPathBasedOnTheme(): void {
         if (this.settings.theme === "Code vibes theme") {
-            this.cardBackPath = this.CODE_VIBES_CARD_BACK;
+            this.cardBackPath = CODE_VIBES_CARD_BACK;
         } else if (this.settings.theme === "Gaming theme") {
-            this.cardBackPath = this.GAMES_CARD_BACK;
+            this.cardBackPath = GAMES_CARD_BACK;
         } else {
-            this.cardBackPath = this.CODE_VIBES_CARD_BACK;
+            this.cardBackPath = CODE_VIBES_CARD_BACK;
         }
     }
 
@@ -256,7 +197,7 @@ export class GameBoard {
             const [card1, card2] = this.flippedCards;
             if (this.checkMatch(card1, card2)) {
                 this.handleMatch(card1, card2);
-                this.getWinnerIfAllCardsMatched();
+                getWinnerIfAllCardsMatched(this.matchedCards, this.cards, this.score);
             } else {
                 this.handleNoMatch(card1, card2);
             }
@@ -290,7 +231,9 @@ export class GameBoard {
     handleMatch(card1: GameCard, card2: GameCard): void {
         this.highlightMatchedCards(card1, card2);
         this.disableFlipMatchingCards(card1, card2);
-        this.updateScore();
+        this.score = updateScore(this.nextPlayer, this.score);
+        updateScoreDisplay(this.score);
+        getWinnerIfAllCardsMatched(this.matchedCards, this.cards, this.score);
         this.flippedCards = [];
     }
 
@@ -330,58 +273,6 @@ export class GameBoard {
                 button.style.pointerEvents = "none";
             }
         });
-    }
-
-
-    /**
-     * This function updates the score for the current player when a match is found. 
-     */
-    updateScore(): void {
-        if (this.nextPlayer) {
-            this.score[this.nextPlayer] += 1;
-            this.updateScoreDisplay();
-        }
-    }
-
-
-    /**
-     * This function updates the score display in the DOM for both players.
-     */
-    updateScoreDisplay(): void {
-        const blueScoreElement: HTMLElement | null = document.getElementById("score_blue");
-        const orangeScoreElement: HTMLElement | null = document.getElementById("score_orange");
-        if (blueScoreElement) {
-            blueScoreElement.textContent = this.score.Blue.toString();
-        }
-        if (orangeScoreElement) {
-            orangeScoreElement.textContent = this.score.Orange.toString();
-        }
-    }
-
-    //TODO: board.class.ts ist schon ziemlich lang, vielleicht könnte man die Funktionalität für das Anzeigen des Gewinners und das Speichern der Ergebnisse in einer separaten Klasse oder einem Modul auslagern, um die Übersichtlichkeit zu verbessern.
-    /**
-     * This function checks if all cards have been matched and, if so, determines the winner based on the scores and stores the results in local storage.
-     */
-    getWinnerIfAllCardsMatched(): void {
-        if (this.matchedCards.length === this.cards.length) {
-            this.winner = this.score.Blue > this.score.Orange ? "Blue Player" : this.score.Orange > this.score.Blue ? "Orange Player" : "No one, it's a tie";
-            this.storeResultsInLocalStorage();
-            setTimeout(() => {
-                window.location.href = "../html/game_over.html";
-            }, 2000);
-        }
-    }
-
-
-    /**
-     * This function stores the game results, including the winner and the final scores for both players, in local storage under the key "memory_game_results".
-     */
-    storeResultsInLocalStorage(): void {
-        const gameResults: { winner: string | null; score: { Blue: number; Orange: number } } = {
-            winner: this.winner,
-            score: this.score
-        };
-        localStorage.setItem("memory_game_results", JSON.stringify(gameResults));
     }
 
 
