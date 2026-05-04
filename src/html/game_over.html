@@ -11,7 +11,6 @@
 <body>
     <div class="content-wrapper" id="game_over_content">
         <h1 class="game-over-headline">Game Over</h1>
-        <!-- <img src="../assets/images/game_over.svg" alt="game over image" class="game-over-image"> -->
         <div class="game-over-score-container">
             <p class="final-score-text">Final score</p>
             <section class="score-board">
@@ -20,18 +19,20 @@
                             src="../assets/icons/label_blue_player.svg" 
                             data-icon-code-vibes="../assets/icons/label_blue_player.svg" 
                             data-icon-gaming="../assets/icons/chess_pawn_icon_blue_small.svg" 
+                            class="score-board__item--game-over-icon"
                             alt="blue player icon">
-                        <span class="score-board__item--blue is-hidden">Blue</span>
-                        <span class="score-board__item--blue" id="final_score_blue">0</span>
-                    </div>
-                    <div class="score-board__item">
-                        <img 
+                            <span class="score-board__item--blue is-hidden">Blue</span>
+                            <span class="score-board__item--blue score-board__item--game-over-score" id="final_score_blue">0</span>
+                        </div>
+                        <div class="score-board__item">
+                            <img 
                             src="../assets/icons/label_orange_player.svg" 
                             data-icon-code-vibes="../assets/icons/label_orange_player.svg" 
                             data-icon-gaming="../assets/icons/chess_pawn_icon_orange_small.svg" 
+                            class="score-board__item--game-over-icon"
                             alt="orange player icon">
                         <span class="score-board__item--orange is-hidden">Orange</span>
-                        <span class="score-board__item--orange" id="final_score_orange">0</span>
+                        <span class="score-board__item--orange score-board__item--game-over-score" id="final_score_orange">0</span>
                     </div>
                 </section>
         </div>

@@ -11,6 +11,8 @@
     --clr-score-board-txt-blue: #{colors.$blue};
     --clr-score-board-txt-orange: #{colors.$orange};
     --rad-score-board: 0;
+    --pd-score-board: 16px 20px;
+    --font-size-score-board: 1.5rem;
     --hide-element: block;
 
     --clr-player-blue-bg: none;
@@ -46,4 +48,16 @@
     --clr-dialog-exit-btn-txt-hover: #{colors.$cyan};
 
     --clr-h1-game-over: #{colors.$cyan};
+    --font-family-headline: 'Red Rose Bold', 'Times New Roman', Times, serif;
+    --font-size-game-over-headline: 180px;
+    --txt-shadow-game-over-headline: 
+        -1px -1px 0 #{colors.$white},
+        -2px -2px 0 #{colors.$white},
+        -3px -3px 0 #{colors.$light_cyan},
+        -4px -3px 0 #{colors.$light_cyan},
+        -5px -3px 0 #{colors.$light_cyan},
+        -6px -3px 0 #{colors.$light_cyan};
+    --ltr-spacing-game-over-headline: 0;
+    --font-size-game-over-score: 24px;
+    --size-icon-game-over-score-board: 24px;
 }

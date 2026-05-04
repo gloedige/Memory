@@ -2,7 +2,7 @@
 
 h1{
     font-size: 140px;
-    font-family: 'Red Rose Bold', sans-serif;
+    font-family: var(--font-family-headline);
     color: colors.$white;
     margin: 0;
 }

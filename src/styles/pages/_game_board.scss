@@ -10,6 +10,8 @@
     --clr-score-board-txt-blue: #{colors.$blue};
     --clr-score-board-txt-orange: #{colors.$orange};
     --rad-score-board: 0;
+    --font-size-score-board: 1.5rem;
+    --pd-score-board: 16px 20px;
     --hide-element: block;
 
     --clr-player-blue-bg: none;
@@ -17,6 +19,9 @@
 
     --grid-column-width: 120px;
     --grid-row-height: 120px;
+
+    --font-size-game-over-score: 24px;
+    --size-icon-game-over-score-board: 24px;
 }
 
 .is-hidden{
@@ -54,7 +59,7 @@
 .score-board{
     display: flex;
     gap: 20px;
-    padding: 16px 20px;
+    padding: var(--pd-score-board);
     background-color: var(--clr-score-board-bg);
     border-radius: var(--rad-score-board);
     
@@ -63,7 +68,7 @@
         align-items: center;
         gap: 8px;
         font-family: var(--font-family);
-        font-size: 1.5rem;
+        font-size: var(--font-size-score-board);
         
         &--blue{
             color: var(--clr-score-board-txt-blue);
@@ -71,6 +76,14 @@
         
         &--orange{
             color: var(--clr-score-board-txt-orange);
+        }
+
+        &--game-over-score{
+            font-size: var(--font-size-game-over-score);
+        }
+
+        &--game-over-icon{
+            height: var(--size-icon-game-over-score-board);
         }
     }
 }

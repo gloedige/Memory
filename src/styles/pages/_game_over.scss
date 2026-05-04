@@ -2,14 +2,24 @@
 
 :root{
     --clr-h1-game-over: #{colors.$cyan};
-    --font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
+    --font-size-game-over-headline: 180px;
+    --txt-shadow-game-over-headline: 
+        -1px -1px 0 #{colors.$white},
+        -2px -2px 0 #{colors.$white},
+        -3px -3px 0 #{colors.$light_cyan},
+        -4px -3px 0 #{colors.$light_cyan},
+        -5px -3px 0 #{colors.$light_cyan},
+        -6px -3px 0 #{colors.$light_cyan};
+    --ltr-spacing-game-over-headline: 0;
 }
 
 .game-over-headline{
-    font-family: var(--font-family);
-    font-size: 124px;
+    font-family: var(--font-family-headline);
+    font-size: var(--font-size-game-over-headline);
     color: var(--clr-h1-game-over);
     margin: 0;
+    text-shadow: var(--txt-shadow-game-over-headline);
+    letter-spacing: var(--ltr-spacing-game-over-headline);
 }
 
 .final-score-text{

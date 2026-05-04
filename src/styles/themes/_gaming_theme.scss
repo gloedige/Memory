@@ -11,6 +11,8 @@
     --clr-score-board-txt-blue: #{colors.$dark_blue};
     --clr-score-board-txt-orange: #{colors.$dark_orange};
     --rad-score-board: 10px;
+    --pd-score-board: 8px 16px;
+    --font-size-score-board: 1.85rem;
     --hide-element: none;
 
     --clr-player-blue-bg: #{colors.$dark_blue};
@@ -46,4 +48,10 @@
     --clr-dialog-exit-btn-txt-hover: #{colors.$white};
 
     --clr-h1-game-over: #{colors.$pink_2};
+    --font-family-headline: 'Orbitron Black', 'Times New Roman', Times, serif;
+    --font-size-game-over-headline: 124px;
+    --txt-shadow-game-over-headline: none;
+    --ltr-spacing-game-over-headline: 7px;
+    --font-size-game-over-score: 40px;
+    --size-icon-game-over-score-board: 32px;
 }
