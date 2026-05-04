@@ -334,9 +334,9 @@ function handleGameOverPageInitialization(score: { Blue: number, Orange: number 
             }
         }
     setHeadlineColorBasedOnTheme();
-    // setTimeout(() => {
-    //     window.location.href = "../html/winner.html";
-    // }, 2000);
+    setTimeout(() => {
+        window.location.href = "../html/winner.html";
+    }, 2000);
 }
 
 
@@ -366,6 +366,7 @@ function handleWinnerPageInitialization(winner: string){
         if (!winnerContentRef) return;
         setWinnerNameInWinnerPage(winner);
         handleColorOfWinnerNameAndIcon(winner);
+        setButtonTextBasedOnTheme();
 }
 
 
@@ -378,7 +379,11 @@ function handleWinnerPageInitialization(winner: string){
 function setWinnerNameInWinnerPage(winner: string){
     const winnerNameRef: HTMLElement | null = document.getElementById("winner_name");
         if(winnerNameRef){
-            winnerNameRef.textContent = `${winner} PLAYER`.toUpperCase();
+            if (settings.theme === "Code vibes theme"){
+                winnerNameRef.textContent = `${winner} PLAYER`.toUpperCase();
+            } else if (settings.theme === "Gaming theme"){
+                winnerNameRef.textContent = `${winner} Player`;
+            }
         }
 }
 
@@ -413,7 +418,59 @@ function setColorOfWinnerNameAndIcon(winnerIconRef: HTMLElement | null, winnerNa
         winnerNameRef.classList.remove(`winner-container__winner-name--winner-${oppositeWinnerIdentifier}`);
     }
     if(winnerIconRef){
-        winnerIconRef.classList.add(`winner-container__winner-svg--${lowercaseWinnerIdentifier}-player`);
-        winnerIconRef.classList.remove(`winner-container__winner-svg--${oppositeWinnerIdentifier}-player`);
+        setWinnerImageSourceBasedOnWinner(winnerIconRef, winner);
+    }
+}
+
+
+/**
+ * This function sets the image source of the winner's icon based on the selected theme and the winning player.
+ * @param winnerIconRef The HTML element representing the winner's icon.
+ * @param winner The name of the winning player.
+ */
+function setWinnerImageSourceBasedOnWinner(winnerIconRef: HTMLElement, winner: string){
+    if (settings.theme === "Gaming theme"){
+        const gamingWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconGaming;
+        if(gamingWinnerIconSrc){
+            (winnerIconRef as HTMLImageElement).src = gamingWinnerIconSrc;
+        }
+    } else if (settings.theme === "Code vibes theme"){
+         setWinnerImageSourceBasedOnWinnerForCodeVibesTheme(winnerIconRef, winner);
+    }
+}
+
+
+/**
+ * This function sets the image source of the winner's icon for the Code Vibes theme based on the winning player by retrieving the appropriate image source 
+ * from the data attributes of the winner icon element and updating the src attribute of the image element accordingly.
+ * @param winnerIconRef The HTML element representing the winner's icon.
+ * @param winner The name of the winning player.
+ */
+function setWinnerImageSourceBasedOnWinnerForCodeVibesTheme(winnerIconRef: HTMLElement, winner: string){
+    if (winner === "Blue"){
+        const blueWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconCodeVibesBlue || winnerIconRef.dataset.iconGaming;
+        if(blueWinnerIconSrc){
+            (winnerIconRef as HTMLImageElement).src = blueWinnerIconSrc;
+        } 
+    } else if (winner === "Orange"){
+        const orangeWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconCodeVibesOrange || winnerIconRef.dataset.iconGaming;
+        if(orangeWinnerIconSrc){
+            (winnerIconRef as HTMLImageElement).src = orangeWinnerIconSrc;
+        }
+    }
+}
+
+
+/**
+ * This function sets the text content of the button in the exit game dialog based on the selected theme in the settings object.
+ */
+function setButtonTextBasedOnTheme(): void {
+    const backToStartBtnRef: HTMLButtonElement | null = document.getElementById("exit_game_button") as HTMLButtonElement | null;
+    if (backToStartBtnRef) {
+        if (settings.theme === "Gaming theme") {
+            backToStartBtnRef.textContent = "Home";
+        } else if (settings.theme === "Code vibes theme") {
+            backToStartBtnRef.textContent = "Back to Start";
+        }
     }
 }

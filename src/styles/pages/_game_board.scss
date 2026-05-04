@@ -1,8 +1,6 @@
 @use '../abstract/color_variables' as colors;
 
 :root {
-    --font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
-
     --clr-board-header-bg: #{colors.$dark_gray};
     --pd-board-header: 0;
 
@@ -67,7 +65,6 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        font-family: var(--font-family);
         font-size: var(--font-size-score-board);
         
         &--blue{
@@ -92,7 +89,6 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: var(--font-family);
     font-size: 2rem;
     
     &__player{

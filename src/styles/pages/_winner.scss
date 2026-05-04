@@ -1,8 +1,14 @@
 @use '../abstract/color_variables' as colors;
 
+:root{
+    --font-size-winner-name: 3.75rem;
+    --font-size-winner-text: 2.5rem;
+}
+
 .confetti-image{
     width: 100%;
     max-width: 1200px;
+    display: var(--hide-element);
 }
 
 .winner-container{
@@ -14,16 +20,16 @@
     
     &__winner-text{
         color: colors.$white;
-        font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
-        font-size: 2.5rem;
+        font-size: var(--font-size-winner-text);
         margin: 0;
     }
 
     &__winner-name{
         color: colors.$white;
-        font-family: 'Red Rose Bold', 'Times New Roman', Times, serif;
-        font-size: 3.75rem;
+        font-family: var(--font-family-headline);
+        font-size: var(--font-size-winner-name);
         margin: 0;
+
         &--winner-orange{
             color: colors.$orange;
         }

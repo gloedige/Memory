@@ -3,6 +3,7 @@
 :root:has(.code-vibes-theme) {
     --clr-body-bg: #{colors.$dark_gray};
     --font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
+    --ltr-spacing: 0;
 
     --clr-board-header-bg: #{colors.$dark_gray};
     --pd-board-header: 0;
@@ -60,4 +61,8 @@
     --ltr-spacing-game-over-headline: 0;
     --font-size-game-over-score: 24px;
     --size-icon-game-over-score-board: 24px;
+
+    --pos-winner-content: flex-start;
+    --font-size-winner-name: 3.75rem;
+    --font-size-winner-text: 2.5rem;
 }

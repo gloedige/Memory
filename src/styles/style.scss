@@ -8,6 +8,7 @@
 :root {
     --clr-body-bg: #{colors.$dark_gray};
     --font-family-headline: 'Red Rose Bold', 'Times New Roman', Times, serif;
+    --pos-winner-content: flex-start;
 }
 
 
@@ -15,6 +16,7 @@ body{
     height: 100vh;
     background-color: var(--clr-body-bg);
     margin: 0;
+    @include mx.font-games-theme(0);
 }
 
 .content-wrapper{
@@ -29,7 +31,7 @@ body{
     @include mx.flex-center;
 
     &--position-winner{
-        justify-content: flex-start;
+        justify-content: var(--pos-winner-content);
     }
     
 }
