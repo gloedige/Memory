@@ -1,12 +1,14 @@
+@use 'themes/themes';
 @use 'components/main';
 @use 'pages/pages';
-@use 'themes/themes';
 @use 'base/fonts';
 @use 'abstract/mixin' as mx;
 @use 'abstract/color_variables' as colors;
 
 :root {
     --clr-body-bg: #{colors.$dark_gray};
+    --font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
+    --font-family-bold: 'Red Rose Bold', 'Times New Roman', Times, serif;
     --font-family-headline: 'Red Rose Bold', 'Times New Roman', Times, serif;
     --pos-winner-content: flex-start;
 }

@@ -78,6 +78,7 @@ export class GameBoard {
         this.winner = null;
         this.cards = [];
         this.cardBackPath = null;
+        this.resetGameResultsInLocalStorage();
         this.loadImages(this.CODE_VIBES_CARDS_IMAGES);
         this.loadImages(this.GAMES_CARDS_IMAGES);
         this.createArrayOfGameCards();
@@ -86,6 +87,23 @@ export class GameBoard {
         this.renderCardsToBoard();
         this.flipCardsEventListener();
         this.setNextPlayer();
+    }
+
+
+    /**
+     * This function resets the game results in local storage by setting the "memory_game_results" key to an 
+     * initial state with no winner and zero scores for both players. This is useful for starting a new game 
+     * with a clean slate.
+     */
+    resetGameResultsInLocalStorage(): void {
+        const initialResults = {
+            winner: null,
+            score: {
+                Blue: 0,
+                Orange: 0
+            }
+        };
+        localStorage.setItem("memory_game_results", JSON.stringify(initialResults));
     }
 
 
@@ -474,7 +492,6 @@ export class GameBoard {
             card.isFlipped = false;
             card.isMatched = false;
         });
-        this.shuffleCards(); // ggf. nicht erforderlich, je nachdem, ob du die Karten nach jedem Spiel neu mischen möchtest
         this.nextPlayer = null;
         this.updateNextPlayerDisplay();
     }

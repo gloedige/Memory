@@ -36,7 +36,8 @@ function init(){
     }
 
     exitBtn?.addEventListener("click", showDialog)
-    backToGameBtn?.addEventListener("click", hideDialog)
+    backToGameBtn?.addEventListener("click", hideDialog);
+    addEventListenersToSettingsOptions();
 }
 
 
@@ -105,23 +106,24 @@ function getOptionsContainerElement(input: HTMLInputElement): HTMLElement | null
  * is changed (e.g., a radio button is selected), it calls the setIconInSettingsOptions function to update the 
  * active option icon based on the selected input.
  */
-const optionsContainer: NodeListOf<Element> = document.querySelectorAll(".options-container")
-optionsContainer.forEach((container) => {
-    const inputContainer: NodeListOf<HTMLInputElement> = container.querySelectorAll("input") as NodeListOf<HTMLInputElement>;
-    if(!inputContainer) return;
+function addEventListenersToSettingsOptions(){
+    const optionsContainer: NodeListOf<Element> = document.querySelectorAll(".options-container")
+    optionsContainer.forEach((container) => {
+        const inputContainer: NodeListOf<HTMLInputElement> = container.querySelectorAll("input") as NodeListOf<HTMLInputElement>;
+        if(!inputContainer) return;
 
-    inputContainer.forEach((input) => {
-        input.addEventListener("change", () => {
-        setIconInSettingsOptions(container, input);
-        storeSelectionInSettings(input);
-        storeSettingsInLocalStorage(settings);               
-        showSelectedOptionsInPreview();
-        showPreviewImageBasedOnSelectedTheme();
-        enableStartGameButtonIfAllOptionsSelected();                                
+        inputContainer.forEach((input) => {
+            input.addEventListener("change", () => {
+            setIconInSettingsOptions(container, input);
+            storeSelectionInSettings(input);
+            storeSettingsInLocalStorage(settings);               
+            showSelectedOptionsInPreview();
+            showPreviewImageBasedOnSelectedTheme();
+            enableStartGameButtonIfAllOptionsSelected();                                
+            });
         });
     });
-});
-
+}
 
 
 /**
@@ -228,12 +230,10 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 function getSettingsFromLocalStorage(): void {
     const storedSettings: string | null = localStorage.getItem("memory_game_settings");
-    if (storedSettings) {
-        settings = JSON.parse(storedSettings);
-    } else {
-        console.warn("No settings found in local storage, using default settings.");
-    }
+    if (!storedSettings || window.location.pathname.includes('settings.html') || window.location.pathname.includes('index.html')) return;
+    settings = JSON.parse(storedSettings);
 }
+
 
 
 /**
@@ -242,7 +242,7 @@ function getSettingsFromLocalStorage(): void {
  */
 function setThemeBasedOnSettings(): void {
     const bodyElement: HTMLElement | null = document.querySelector("body");
-    if (!bodyElement) return;
+    if (!bodyElement || window.location.pathname.includes('settings.html') || window.location.pathname.includes('index.html')) return;
     if (settings.theme === "Code vibes theme") {
         bodyElement.classList.add("code-vibes-theme");
     } else if (settings.theme === "Gaming theme") {
