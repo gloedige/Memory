@@ -1,5 +1,6 @@
 import './styles/style.scss'
 import {handleColorOfWinnerNameAndIcon} from './scripts/handle_winner_page'
+import { resolveAssetPath } from "./scripts/asset_paths";
 import { GameBoard } from "./scripts/board.class";
 
 const exitBtn = document.getElementById("exit_game_button")
@@ -267,7 +268,7 @@ function setThemeIconsBasedOnSettings(): void {
     themeIconRefs.forEach((iconRef) => {
         const sourcePath: string | undefined = iconRef.dataset[themeDataAttribute];
         if(sourcePath){
-            iconRef.src = sourcePath;
+            iconRef.src = resolveAssetPath(sourcePath);
         }
     });
 }

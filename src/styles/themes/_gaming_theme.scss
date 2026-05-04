@@ -1,6 +1,7 @@
 @use '../abstract/color_variables' as colors;
 
-:root:has(.gaming-theme) {
+:root:has(.gaming-theme),
+body.gaming-theme {
     --clr-body-bg: #{colors.$petrol};
     --font-family: 'Orbitron Bold', 'Times New Roman', Times, serif;
     --ltr-spacing: 7px;

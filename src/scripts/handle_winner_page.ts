@@ -1,4 +1,5 @@
 import {settings} from "../main";
+import { resolveAssetPath } from "./asset_paths";
 
 /**
  * This function sets the color of the winner's name and icon in the winner page based on who won the game.
@@ -74,7 +75,7 @@ function setWinnerImageSourceBasedOnWinner(winnerIconRef: HTMLElement, winner: s
     if (settings.theme === "Gaming theme"){
         const gamingWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconGaming;
         if(gamingWinnerIconSrc){
-            (winnerIconRef as HTMLImageElement).src = gamingWinnerIconSrc;
+            (winnerIconRef as HTMLImageElement).src = resolveAssetPath(gamingWinnerIconSrc);
         }
     } else if (settings.theme === "Code vibes theme"){
          setWinnerImageSourceBasedOnWinnerForCodeVibesTheme(winnerIconRef, winner);
@@ -92,12 +93,12 @@ function setWinnerImageSourceBasedOnWinnerForCodeVibesTheme(winnerIconRef: HTMLE
     if (winner === "Blue Player"){
         const blueWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconCodeVibesBlue || winnerIconRef.dataset.iconGaming;
         if(blueWinnerIconSrc){
-            (winnerIconRef as HTMLImageElement).src = blueWinnerIconSrc;
+            (winnerIconRef as HTMLImageElement).src = resolveAssetPath(blueWinnerIconSrc);
         } 
     } else if (winner === "Orange Player"){
         const orangeWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconCodeVibesOrange || winnerIconRef.dataset.iconGaming;
         if(orangeWinnerIconSrc){
-            (winnerIconRef as HTMLImageElement).src = orangeWinnerIconSrc;
+            (winnerIconRef as HTMLImageElement).src = resolveAssetPath(orangeWinnerIconSrc);
         }
     }
 }

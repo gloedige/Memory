@@ -1,6 +1,7 @@
 @use '../abstract/color_variables' as colors;
 
-:root:has(.code-vibes-theme) {
+:root:has(.code-vibes-theme),
+body.code-vibes-theme {
     --clr-body-bg: #{colors.$dark_gray};
     --font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
     --ltr-spacing: 0;
