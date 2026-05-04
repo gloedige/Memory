@@ -364,7 +364,7 @@ export class GameBoard {
      */
     getWinnerIfAllCardsMatched(): void {
         if (this.matchedCards.length === this.cards.length) {
-            this.winner = this.score.Blue > this.score.Orange ? "Blue" : this.score.Orange > this.score.Blue ? "Orange" : "No one, it's a tie";
+            this.winner = this.score.Blue > this.score.Orange ? "Blue Player" : this.score.Orange > this.score.Blue ? "Orange Player" : "No one, it's a tie";
             this.storeResultsInLocalStorage();
             setTimeout(() => {
                 window.location.href = "../html/game_over.html";
@@ -481,18 +481,5 @@ export class GameBoard {
             nextPlayerIconWrapper.classList.add("next-turn__icon-wrapper--orange-background");
             nextPlayerIconWrapper.classList.remove("next-turn__icon-wrapper--blue-background");
         }
-    }
-
-
-    //TODO: integriere diese Funktion, um das Spiel zurückzusetzen, wenn der Spieler auf "Play Again" klickt. Aktuell wird dafür die Seite neu geladen, was auch funktioniert, aber mit dieser Funktion
-    resetBoard(): void {
-        this.flippedCards = [];
-        this.matchedCards = [];
-        this.cards.forEach(card => {
-            card.isFlipped = false;
-            card.isMatched = false;
-        });
-        this.nextPlayer = null;
-        this.updateNextPlayerDisplay();
     }
 }

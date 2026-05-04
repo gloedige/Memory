@@ -143,6 +143,11 @@ function storeSelectionInSettings(input: HTMLInputElement){
 }
 
 
+/**
+ * This function takes a settings object as a parameter and stores it in local storage under the key "memory_game_settings" after converting 
+ * it to a JSON string.
+ * @param settings The settings object to be stored in local storage.
+ */
 function storeSettingsInLocalStorage(settings: {
     theme: "Code vibes theme" | "Gaming theme" | null,
     player: "Blue" | "Orange" | null,
@@ -267,7 +272,9 @@ function setThemeIconsBasedOnSettings(): void {
 }
 
 
-
+/**
+ * This function sets the text content of the buttons in the exit game dialog based on the selected theme in the settings object.
+ */
 function setDialogBtnTextBasedOnSettings(): void {
     const backToGameBtnRef: HTMLButtonElement | null = document.getElementById("back_to_game") as HTMLButtonElement | null;
     const exitGameBtnRef: HTMLButtonElement | null = document.getElementById("exit_game_dialog_btn") as HTMLButtonElement | null;
@@ -300,17 +307,9 @@ function handleGameBoardInitialization(){
  */
 function getGameResultsFromLocalStorage(): { winner: string, score: { Blue: number, Orange: number } }{
     const lastGameResult: string | null = localStorage.getItem("memory_game_results");
-    if(lastGameResult){
-        return JSON.parse(lastGameResult);
-    } else {
-        return {
-            winner: "No one",
-            score: {
-                Blue: 0,
-                Orange: 0
-            }
-        }
-    }
+    if(!lastGameResult) return { winner: "No one, it's a tie", score: { Blue: 0, Orange: 0 } };
+    
+    return JSON.parse(lastGameResult);
 }
 
 
@@ -380,9 +379,9 @@ function setWinnerNameInWinnerPage(winner: string){
     const winnerNameRef: HTMLElement | null = document.getElementById("winner_name");
         if(winnerNameRef){
             if (settings.theme === "Code vibes theme"){
-                winnerNameRef.textContent = `${winner} PLAYER`.toUpperCase();
+                winnerNameRef.textContent = `${winner}`.toUpperCase();
             } else if (settings.theme === "Gaming theme"){
-                winnerNameRef.textContent = `${winner} Player`;
+                winnerNameRef.textContent = `${winner}`;
             }
         }
 }
@@ -396,10 +395,12 @@ function setWinnerNameInWinnerPage(winner: string){
 function handleColorOfWinnerNameAndIcon(winner: string){
     const winnerNameRef: HTMLElement | null = document.getElementById("winner_name");
     const winnerIconRef: HTMLElement | null = document.getElementById("winner_icon");
-    if(winner === "Blue"){
+    if(winner === "Blue Player"){
         setColorOfWinnerNameAndIcon(winnerIconRef, winnerNameRef, winner);
-    } else if(winner === "Orange"){
+    } else if(winner === "Orange Player"){
         setColorOfWinnerNameAndIcon(winnerIconRef, winnerNameRef, winner);
+    } else if (winner === "No one, it's a tie"){
+        setColorOfWinnerNameAndIconForTie(winnerIconRef, winnerNameRef, winner);
     }
 }
 
@@ -411,11 +412,32 @@ function handleColorOfWinnerNameAndIcon(winner: string){
  * @param winner The name of the winning player.
  */
 function setColorOfWinnerNameAndIcon(winnerIconRef: HTMLElement | null, winnerNameRef: HTMLElement | null, winner: string){
-    const lowercaseWinnerIdentifier = winner.toLowerCase();
+    const lowercaseWinnerIdentifier = winner.toLowerCase().replace(" player", "");
     const oppositeWinnerIdentifier = lowercaseWinnerIdentifier === "blue" ? "orange" : "blue";
     if(winnerNameRef){
         winnerNameRef.classList.add(`winner-container__winner-name--winner-${lowercaseWinnerIdentifier}`);
         winnerNameRef.classList.remove(`winner-container__winner-name--winner-${oppositeWinnerIdentifier}`);
+    }
+    if(winnerIconRef){
+        setWinnerImageSourceBasedOnWinner(winnerIconRef, winner);
+    }
+}
+
+
+/**
+ * This function sets the color of the winner's name and icon for a tie by adding the appropriate CSS class for a tie and removing any classes for 
+ * specific winners.
+ * @param winnerIconRef The HTML element representing the winner's icon.
+ * @param winnerNameRef The HTML element representing the winner's name.
+ * @param winner The name of the winning player.
+ */
+function setColorOfWinnerNameAndIconForTie(winnerIconRef: HTMLElement | null, winnerNameRef: HTMLElement | null, winner: string){
+    if(winner === "No one, it's a tie"){
+        winnerNameRef?.classList.add("winner-container__winner-name--winner-tie");
+        winnerNameRef?.classList.remove(`winner-container__winner-name--winner-blue`);
+        winnerNameRef?.classList.remove(`winner-container__winner-name--winner-orange`);
+    } else {
+        winnerNameRef?.classList.remove("winner-container__winner-name--winner-tie");
     }
     if(winnerIconRef){
         setWinnerImageSourceBasedOnWinner(winnerIconRef, winner);
@@ -429,6 +451,14 @@ function setColorOfWinnerNameAndIcon(winnerIconRef: HTMLElement | null, winnerNa
  * @param winner The name of the winning player.
  */
 function setWinnerImageSourceBasedOnWinner(winnerIconRef: HTMLElement, winner: string){
+    if (winner === "No one, it's a tie"){
+        setWinnerIconVisibility(winnerIconRef, false);
+        (winnerIconRef as HTMLImageElement).removeAttribute("src");
+        return;
+    }
+
+    setWinnerIconVisibility(winnerIconRef, true);
+
     if (settings.theme === "Gaming theme"){
         const gamingWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconGaming;
         if(gamingWinnerIconSrc){
@@ -447,16 +477,29 @@ function setWinnerImageSourceBasedOnWinner(winnerIconRef: HTMLElement, winner: s
  * @param winner The name of the winning player.
  */
 function setWinnerImageSourceBasedOnWinnerForCodeVibesTheme(winnerIconRef: HTMLElement, winner: string){
-    if (winner === "Blue"){
+    if (winner === "Blue Player"){
         const blueWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconCodeVibesBlue || winnerIconRef.dataset.iconGaming;
         if(blueWinnerIconSrc){
             (winnerIconRef as HTMLImageElement).src = blueWinnerIconSrc;
         } 
-    } else if (winner === "Orange"){
+    } else if (winner === "Orange Player"){
         const orangeWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconCodeVibesOrange || winnerIconRef.dataset.iconGaming;
         if(orangeWinnerIconSrc){
             (winnerIconRef as HTMLImageElement).src = orangeWinnerIconSrc;
         }
+    }
+}
+
+
+/**
+ * This function sets the visibility of the winner icon based on whether there is a winner or a tie. If there is a tie, the icon is hidden; otherwise, it is shown.
+ * @param winnerIconRef The HTML element representing the winner's icon.
+ * @param isVisible A boolean indicating whether the winner icon should be visible.
+ */
+function setWinnerIconVisibility(winnerIconRef: HTMLElement, isVisible: boolean){
+    const winnerIconContainerRef: HTMLElement | null = winnerIconRef.closest(".winner-container__winner-svg") as HTMLElement | null;
+    if(winnerIconContainerRef){
+        winnerIconContainerRef.style.display = isVisible ? "block" : "none";
     }
 }
 
