@@ -333,9 +333,25 @@ function handleGameOverPageInitialization(score: { Blue: number, Orange: number 
                 orangeScoreRef.textContent = `${score.Orange}`;
             }
         }
-    setTimeout(() => {
-        window.location.href = "../html/winner.html";
-    }, 4000);
+    setHeadlineColorBasedOnTheme();
+    // setTimeout(() => {
+    //     window.location.href = "../html/winner.html";
+    // }, 2000);
+}
+
+
+/**
+ * This function sets the case of the headline text in the game over page based on the selected theme in the settings object.
+ * @returns - void
+ */
+function setHeadlineColorBasedOnTheme(){
+    const headlineRef: HTMLElement | null = document.querySelector(".game-over-headline");
+    if (!headlineRef) return;
+    if (settings.theme === "Gaming theme"){
+        headlineRef.textContent = headlineRef.textContent?.toUpperCase() || "GAME OVER";
+    } else if (settings.theme === "Code vibes theme"){
+        headlineRef.textContent = headlineRef.textContent || "Game Over";
+    }
 }
 
 

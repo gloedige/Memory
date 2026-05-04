@@ -340,7 +340,7 @@ export class GameBoard {
         }
     }
 
-
+    //TODO: board.class.ts ist schon ziemlich lang, vielleicht könnte man die Funktionalität für das Anzeigen des Gewinners und das Speichern der Ergebnisse in einer separaten Klasse oder einem Modul auslagern, um die Übersichtlichkeit zu verbessern.
     /**
      * This function checks if all cards have been matched and, if so, determines the winner based on the scores and stores the results in local storage.
      */

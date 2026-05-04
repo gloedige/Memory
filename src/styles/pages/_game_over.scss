@@ -1,7 +1,19 @@
 @use '../abstract/color_variables' as colors;
 
+:root{
+    --clr-h1-game-over: #{colors.$cyan};
+    --font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
+}
+
+.game-over-headline{
+    font-family: var(--font-family);
+    font-size: 124px;
+    color: var(--clr-h1-game-over);
+    margin: 0;
+}
+
 .final-score-text{
-    font-family: 'Red Rose Regular', 'Times New Roman', Times, serif;
+    font-family: var(--font-family);
     font-size: 26px;
     color: colors.$white;
     margin: 0;
