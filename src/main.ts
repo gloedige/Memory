@@ -366,7 +366,7 @@ function handleWinnerPageInitialization(winner: string){
     const winnerContentRef: HTMLElement | null = document.getElementById("winner_content");
         if (!winnerContentRef) return;
         setWinnerNameInWinnerPage(winner);
-        handleColorOfWinnerNameAndIcon(winner);
+    handleColorOfWinnerNameAndIcon(winner, settings.theme);
         setButtonTextBasedOnTheme();
 }
 

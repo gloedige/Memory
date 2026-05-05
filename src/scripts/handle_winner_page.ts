@@ -1,20 +1,21 @@
-import {settings} from "../main";
 import { resolveAssetPath } from "./asset_paths";
+
+type ThemeType = "Code vibes theme" | "Gaming theme" | null;
 
 /**
  * This function sets the color of the winner's name and icon in the winner page based on who won the game.
  * @param winner The name of the winning player.
  * @returns void
  */
-export function handleColorOfWinnerNameAndIcon(winner: string){
+export function handleColorOfWinnerNameAndIcon(winner: string, theme: ThemeType){
     const winnerNameRef: HTMLElement | null = document.getElementById("winner_name");
     const winnerIconRef: HTMLElement | null = document.getElementById("winner_icon");
     if(winner === "Blue Player"){
-        setColorOfWinnerNameAndIcon(winnerIconRef, winnerNameRef, winner);
+        setColorOfWinnerNameAndIcon(winnerIconRef, winnerNameRef, winner, theme);
     } else if(winner === "Orange Player"){
-        setColorOfWinnerNameAndIcon(winnerIconRef, winnerNameRef, winner);
+        setColorOfWinnerNameAndIcon(winnerIconRef, winnerNameRef, winner, theme);
     } else if (winner === "No one, it's a tie"){
-        setColorOfWinnerNameAndIconForTie(winnerIconRef, winnerNameRef, winner);
+        setColorOfWinnerNameAndIconForTie(winnerIconRef, winnerNameRef, winner, theme);
     }
 }
 
@@ -25,7 +26,7 @@ export function handleColorOfWinnerNameAndIcon(winner: string){
  * @param winnerNameRef The HTML element representing the winner's name.
  * @param winner The name of the winning player.
  */
-function setColorOfWinnerNameAndIcon(winnerIconRef: HTMLElement | null, winnerNameRef: HTMLElement | null, winner: string){
+function setColorOfWinnerNameAndIcon(winnerIconRef: HTMLElement | null, winnerNameRef: HTMLElement | null, winner: string, theme: ThemeType){
     const lowercaseWinnerIdentifier = winner.toLowerCase().replace(" player", "");
     const oppositeWinnerIdentifier = lowercaseWinnerIdentifier === "blue" ? "orange" : "blue";
     if(winnerNameRef){
@@ -33,7 +34,7 @@ function setColorOfWinnerNameAndIcon(winnerIconRef: HTMLElement | null, winnerNa
         winnerNameRef.classList.remove(`winner-container__winner-name--winner-${oppositeWinnerIdentifier}`);
     }
     if(winnerIconRef){
-        setWinnerImageSourceBasedOnWinner(winnerIconRef, winner);
+        setWinnerImageSourceBasedOnWinner(winnerIconRef, winner, theme);
     }
 }
 
@@ -45,7 +46,7 @@ function setColorOfWinnerNameAndIcon(winnerIconRef: HTMLElement | null, winnerNa
  * @param winnerNameRef The HTML element representing the winner's name.
  * @param winner The name of the winning player.
  */
-function setColorOfWinnerNameAndIconForTie(winnerIconRef: HTMLElement | null, winnerNameRef: HTMLElement | null, winner: string){
+function setColorOfWinnerNameAndIconForTie(winnerIconRef: HTMLElement | null, winnerNameRef: HTMLElement | null, winner: string, theme: ThemeType){
     if(winner === "No one, it's a tie"){
         winnerNameRef?.classList.add("winner-container__winner-name--winner-tie");
         winnerNameRef?.classList.remove(`winner-container__winner-name--winner-blue`);
@@ -54,7 +55,7 @@ function setColorOfWinnerNameAndIconForTie(winnerIconRef: HTMLElement | null, wi
         winnerNameRef?.classList.remove("winner-container__winner-name--winner-tie");
     }
     if(winnerIconRef){
-        setWinnerImageSourceBasedOnWinner(winnerIconRef, winner);
+        setWinnerImageSourceBasedOnWinner(winnerIconRef, winner, theme);
     }
 }
 
@@ -64,7 +65,7 @@ function setColorOfWinnerNameAndIconForTie(winnerIconRef: HTMLElement | null, wi
  * @param winnerIconRef The HTML element representing the winner's icon.
  * @param winner The name of the winning player.
  */
-function setWinnerImageSourceBasedOnWinner(winnerIconRef: HTMLElement, winner: string){
+function setWinnerImageSourceBasedOnWinner(winnerIconRef: HTMLElement, winner: string, theme: ThemeType){
     if (winner === "No one, it's a tie"){
         setWinnerIconVisibility(winnerIconRef, false);
         (winnerIconRef as HTMLImageElement).removeAttribute("src");
@@ -72,12 +73,12 @@ function setWinnerImageSourceBasedOnWinner(winnerIconRef: HTMLElement, winner: s
     }
 
     setWinnerIconVisibility(winnerIconRef, true);
-    if (settings.theme === "Gaming theme"){
+    if (theme === "Gaming theme"){
         const gamingWinnerIconSrc: string | undefined = winnerIconRef.dataset.iconGaming;
         if(gamingWinnerIconSrc){
             (winnerIconRef as HTMLImageElement).src = resolveAssetPath(gamingWinnerIconSrc);
         }
-    } else if (settings.theme === "Code vibes theme"){
+    } else if (theme === "Code vibes theme"){
          setWinnerImageSourceBasedOnWinnerForCodeVibesTheme(winnerIconRef, winner);
     }
 }
