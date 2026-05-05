@@ -153,22 +153,22 @@ export class GameBoard {
                 const cardHTML: string = renderSingleCardsToGameBoard(card.imagePath, this.cardBackPath!);
                 fieldRef.insertAdjacentHTML("beforeend", cardHTML);
             });
-        }  
-        
+        }
     }
-
-
+    
+    
     /**
      * This function adds click event listeners to each card button on the game board. When a card is clicked, it calls the handleCardFlip
      * function to flip the card and then checks if there are two flipped cards to handle matching logic.
-     */
-    flipCardsEventListener(): void {
-        const buttonElements: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
-        buttonElements.forEach((button, index) => {
-            button.addEventListener("click", () => {
-                this.handleCardFlip(index, button);
+    */
+   flipCardsEventListener(): void {
+       const cardList: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
+       cardList.forEach((card, index) => {
+           card.addEventListener("click", () => {
+                if (this.flippedCards.length === 2) return;
+                card.classList.toggle("is-flipped")
+                this.handleCardFlip(index, card);
                 this.handleTwoFlippedCards();
-                // this.showWinMessageIfAllCardsMatched();
             });
         }
         );
@@ -197,7 +197,6 @@ export class GameBoard {
             const [card1, card2] = this.flippedCards;
             if (this.checkMatch(card1, card2)) {
                 this.handleMatch(card1, card2);
-                getWinnerIfAllCardsMatched(this.matchedCards, this.cards, this.score);
             } else {
                 this.handleNoMatch(card1, card2);
             }

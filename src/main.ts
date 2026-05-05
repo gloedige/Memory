@@ -27,16 +27,6 @@ init();
  * - Hides the exit game dialog when the back to game button is clicked
  */
 function init(){
-    const fieldRef = document.getElementById("field")
-    if(fieldRef){
-        fieldRef.addEventListener("click", (event) => {
-            const card = (event.target as HTMLElement).closest(".card") as HTMLButtonElement
-            if(card){
-                card.classList.toggle("is-flipped")
-            };
-        });
-    }
-
     exitBtn?.addEventListener("click", showDialog)
     backToGameBtn?.addEventListener("click", hideDialog);
     addEventListenersToSettingsOptions();
