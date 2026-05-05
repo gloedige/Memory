@@ -95,11 +95,35 @@
         align-items: center;
         margin-left: 46px;
         gap: 10px;
+        cursor: pointer;
+
+        input, label{
+            pointer-events: none;
+        }
 
         & img{
             width: 40px;
             height: 20px;
             opacity: 0;
+        }
+
+        &:hover img{
+            opacity: 1;
+        }
+
+        &:hover label{
+            font-family: 'Almarai Bold', sans-serif;
+        }
+
+        &:hover .box-shadow-radio{
+            width: 0.8em;
+            height: 0.8em;
+            box-shadow: 0 0 0 0.1em colors.$dark_gray;
+            padding: 0;
+        }
+        &:hover .box-shadow-radio::before{
+            box-shadow: inset 1em 1em colors.$dark_gray;
+            transform: scale(1);
         }
 
         &--active_option_icon img{
@@ -140,6 +164,7 @@
     align-items: center;
     gap: 8px;
     font-size: 20px;
+    height: 28px;
 }
 
 .box-shadow-radio {
