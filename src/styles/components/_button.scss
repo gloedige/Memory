@@ -103,7 +103,7 @@
         &--controller_icon{
             transition: transform 0.2s ease-in-out;
         }
-        &:hover &--controller_icon{
+        &:not(:disabled):hover &--controller_icon{
             transition: transform 0.2s ease-in-out;
             transform: rotate(-30deg);
         }
@@ -113,14 +113,14 @@
             gap: 10px;
             transition: transform 0.2s ease-in-out;
         }
-
+        
         &--start_game:hover{
             transition: transform 0.2s ease-in-out;
             transform: scale(1.2);
         }
-
+        
         &--start_game:disabled{
-            background-color: colors.$light_gray;
+            background-color: colors.$yellow_transparent;
             color: colors.$dark_gray;
             cursor: not-allowed;
             box-shadow: none;
