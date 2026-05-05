@@ -103,13 +103,10 @@ function addEventListenersToSettingsOptions(){
     optionsContainers.forEach((container) => {
         const options: NodeListOf<Element> = container.querySelectorAll(".options-container__element");
         if(!options.length) return;
-
         options.forEach((option) => {
             const input: HTMLInputElement | null = option.querySelector("input");
-
-            // Hover: add preview logic here
             option.addEventListener("mouseenter", () => {
-                // TODO: show hover preview for this option
+                handleImagePreviewOnHover(input, container);
             });
             option.addEventListener("click", () => {
                 if (!input) return;
@@ -126,6 +123,22 @@ function addEventListenersToSettingsOptions(){
 }
 
 
+/**
+ * This function handles the hover event on the settings options to show a preview image based on the theme associated with the hovered option.
+ * @param input The input element associated with the hovered option.
+ * @param container The container element within which the options are located.
+ */
+function handleImagePreviewOnHover(input: HTMLInputElement | null, container: Element){
+    if (settings.theme) return;
+    const hoveredTheme: "Code vibes theme" | "Gaming theme" | null =
+        input?.dataset.theme === "Gaming theme"
+            ? "Gaming theme"
+            : input?.dataset.theme === "Code vibes theme"
+                ? "Code vibes theme"
+                : null;
+    if (!hoveredTheme) return;
+    setPreviewImageByTheme(hoveredTheme);
+}
 
 
 /**
@@ -182,14 +195,23 @@ function showSelectedOptionsInPreview(){
  * This function shows the preview image based on the selected theme in the settings object.
  */
 function showPreviewImageBasedOnSelectedTheme(){
+    setPreviewImageByTheme(settings.theme);
+}
+
+
+/**
+ * This function updates the preview image visibility based on the given theme.
+ * @param theme The selected or hovered theme.
+ */
+function setPreviewImageByTheme(theme: "Code vibes theme" | "Gaming theme" | null): void {
     const theme1ImgRef: HTMLImageElement | null = document.getElementById("theme_1_img") as HTMLImageElement | null;
     const theme2ImgRef: HTMLImageElement | null = document.getElementById("theme_2_img") as HTMLImageElement | null;
-    if(settings.theme === "Gaming theme"){
+    if(theme === "Gaming theme"){
         if(theme1ImgRef && theme2ImgRef){
             theme1ImgRef.style.display = "block";
             theme2ImgRef.style.display = "none";
         }
-    } else if(settings.theme === "Code vibes theme"){
+    } else if(theme === "Code vibes theme"){
         if(theme1ImgRef && theme2ImgRef){
             theme1ImgRef.style.display = "none";
             theme2ImgRef.style.display = "block";
