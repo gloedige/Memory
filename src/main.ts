@@ -99,23 +99,33 @@ function getOptionsContainerElement(input: HTMLInputElement): HTMLElement | null
  * active option icon based on the selected input.
  */
 function addEventListenersToSettingsOptions(){
-    const optionsContainer: NodeListOf<Element> = document.querySelectorAll(".options-container")
-    optionsContainer.forEach((container) => {
-        const inputContainer: NodeListOf<HTMLInputElement> = container.querySelectorAll("input") as NodeListOf<HTMLInputElement>;
-        if(!inputContainer) return;
+    const optionsContainers: NodeListOf<Element> = document.querySelectorAll(".options-container");
+    optionsContainers.forEach((container) => {
+        const options: NodeListOf<Element> = container.querySelectorAll(".options-container__element");
+        if(!options.length) return;
 
-        inputContainer.forEach((input) => {
-            input.addEventListener("change", () => {
-            setIconInSettingsOptions(container, input);
-            storeSelectionInSettings(input);
-            storeSettingsInLocalStorage(settings);               
-            showSelectedOptionsInPreview();
-            showPreviewImageBasedOnSelectedTheme();
-            enableStartGameButtonIfAllOptionsSelected();                                
+        options.forEach((option) => {
+            const input: HTMLInputElement | null = option.querySelector("input");
+
+            // Hover: add preview logic here
+            option.addEventListener("mouseenter", () => {
+                // TODO: show hover preview for this option
+            });
+            option.addEventListener("click", () => {
+                if (!input) return;
+                input.checked = true;
+                setIconInSettingsOptions(container, input);
+                storeSelectionInSettings(input);
+                storeSettingsInLocalStorage(settings);
+                showSelectedOptionsInPreview();
+                showPreviewImageBasedOnSelectedTheme();
+                enableStartGameButtonIfAllOptionsSelected();
             });
         });
     });
 }
+
+
 
 
 /**
