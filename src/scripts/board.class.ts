@@ -165,7 +165,7 @@ export class GameBoard {
        const cardList: NodeListOf<HTMLButtonElement> = document.querySelectorAll(".card");
        cardList.forEach((card, index) => {
            card.addEventListener("click", () => {
-                if (this.flippedCards.length === 2) return;
+                if (this.flippedCards.length === 2 || card.classList.contains("is-flipped")) return;
                 card.classList.toggle("is-flipped")
                 this.handleCardFlip(index, card);
                 this.handleTwoFlippedCards();
